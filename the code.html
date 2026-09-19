@@ -1,1 +1,2085 @@
-document.write("<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <style>\r\nbody { \r\n    font-family: 'Courier New', Courier, monospace; \r\n    display: flex; \r\n    justify-content: center; \r\n    align-items: center; \r\n    height: 100vh;  \r\n    margin: 0; \r\n}\r\n\r\n#login-box { \r\n    background: var(--bg); \r\n    padding: 2rem; \r\n    border: 2px solid var(--accent2);\r\n    border-radius: 4px; \r\n    box-shadow: 0 0 15px var(--accent1); \r\n    text-align: left; \r\n    color: var(--accent1);\r\n    max-width: 400px;\r\n    width: 100%;\r\n}\r\n\r\n\/* Optional header style for the login box if you want to add a title *\/\r\n#login-box::before {\r\n    content: \"SYSTEM ACCESS REQUIRED \/\/\";\r\n    display: block;\r\n    font-weight: bold;\r\n    margin-bottom: 1.5rem;\r\n    font-size: 1.1rem;\r\n    letter-spacing: 1px;\r\n}\r\n\r\ninput { \r\n    background: var(--bg);\r\n    border: 1px solid var(--accent1);\r\n    color: var(--text);\r\n    border-radius:5px;\r\n    padding: 0.6rem; \r\n    font-size: 1rem; \r\n    margin-bottom: 1rem;\r\n    font-family: inherit;\r\n    width: 100%;\r\n    box-sizing: border-box;\r\n}\r\n\r\ninput:focus {\r\n    outline: none;\r\n    box-shadow: 0 0 8px var(--accent1);\r\n}\r\n<\/style>\r\n<\/head>\r\n<body>\r\n\r\n    <head>\r\n        <meta charset=\"UTF-8\" \/>\r\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" \/>\r\n        <title>Banana Town<\/title>\r\n        <link\r\n            rel=\"icon\"\r\n            type=\"image\/x-icon\"\r\n            href=\"https:\/\/github.com\/CorduroyBrick49\/Banana Town\/blob\/main\/AtlasIcon.ico?raw=true\"\r\n        \/>\r\n        <link\r\n            href=\"https:\/\/fonts.googleapis.com\/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap\"\r\n            rel=\"stylesheet\"\r\n        \/>\r\n        <style>\r\n            *,\r\n            *::before,\r\n            *::after {\r\n                margin: 0;\r\n                padding: 0;\r\n                box-sizing: border-box;\r\n            }\r\n\r\n            :root {\r\n                --bg: #0b0b12;\r\n                --card: rgba(20, 20, 35, 0.7);\r\n                --border: rgba(168, 85, 247, 0.25);\r\n                --text: #ffffff;\r\n                --muted: #cbd5e1;\r\n                --accent1: #a855f7;\r\n                --accent2: #6366f1;\r\n                --bg-image: none;\r\n                --cardText: #d3d3d3;\r\n                --radius-sm: 8px;\r\n                --radius-md: 10px;\r\n                --radius-lg: 14px;\r\n                --radius-xl: 18px;\r\n                --transition-fast: 0.15s ease;\r\n                --transition-med: 0.25s ease;\r\n                --transition-slow: 0.35s ease;\r\n            }\r\n\r\n            html {\r\n                font-size: 16px;\r\n            }\r\n\r\n            body {\r\n                font-family:\r\n                    \"Manrope\",\r\n                    -apple-system,\r\n                    BlinkMacSystemFont,\r\n                    \"Segoe UI\",\r\n                    sans-serif;\r\n                min-height: 100vh;\r\n                display: flex;\r\n                background: var(--bg);\r\n                color: var(--text);\r\n                -webkit-font-smoothing: antialiased;\r\n                -moz-osx-font-smoothing: grayscale;\r\n                transition:\r\n                    background var(--transition-slow),\r\n                    color var(--transition-slow);\r\n            }\r\n\r\n            body::before {\r\n                content: \"\";\r\n                position: fixed;\r\n                inset: 0;\r\n                z-index: -1;\r\n                background-image: var(--bg-image);\r\n                background-size: cover;\r\n                background-position: center;\r\n                background-repeat: no-repeat;\r\n                opacity: 0.35;\r\n                pointer-events: none;\r\n                transition:\r\n                    background-image var(--transition-slow),\r\n                    opacity var(--transition-slow);\r\n            }\r\n\r\n            \/* \u2500\u2500 SIDEBAR \u2500\u2500 *\/\r\n            .sidebar {\r\n                position: fixed;\r\n                top: 0;\r\n                left: 0;\r\n                width: 260px;\r\n                height: 100vh;\r\n                z-index: 10;\r\n                padding: 22px 16px;\r\n                display: flex;\r\n                flex-direction: column;\r\n                gap: 14px;\r\n                background: var(--card);\r\n                backdrop-filter: blur(16px);\r\n                -webkit-backdrop-filter: blur(16px);\r\n                border-right: 1px solid var(--border);\r\n                overflow-y: auto;\r\n                overflow-x: hidden;\r\n                transition:\r\n                    background var(--transition-slow),\r\n                    border-color var(--transition-slow);\r\n            }\r\n\r\n            .sidebar::-webkit-scrollbar {\r\n                width: 4px;\r\n            }\r\n            .sidebar::-webkit-scrollbar-thumb {\r\n                background: var(--border);\r\n                border-radius: 4px;\r\n            }\r\n\r\n            .logo {\r\n                font-size: 1.6rem;\r\n                font-weight: 800;\r\n                letter-spacing: -0.02em;\r\n                background: linear-gradient(135deg, var(--accent1), var(--accent2));\r\n                -webkit-background-clip: text;\r\n                -webkit-text-fill-color: transparent;\r\n                background-clip: text;\r\n                display: flex;\r\n                align-items: center;\r\n                gap: 8px;\r\n                padding: 2px 0 6px;\r\n                user-select: none;\r\n            }\r\n\r\n            .logo svg {\r\n                flex-shrink: 0;\r\n                \/* SVG stroke inherits from color but we need to override text-fill *\/\r\n                stroke: var(--accent1);\r\n            }\r\n\r\n            .sidebar-label {\r\n                font-size: 0.7rem;\r\n                font-weight: 600;\r\n                letter-spacing: 0.08em;\r\n                text-transform: uppercase;\r\n                color: var(--muted);\r\n                opacity: 0.6;\r\n                padding: 0 4px;\r\n            }\r\n\r\n            .sidebar hr {\r\n                border: none;\r\n                border-top: 1px solid var(--border);\r\n                margin: 2px 0;\r\n            }\r\n\r\n            \/* \u2500\u2500 SEARCH \u2500\u2500 *\/\r\n            .search {\r\n                width: 100%;\r\n                padding: 10px 14px;\r\n                border-radius: var(--radius-md);\r\n                border: 1px solid var(--border);\r\n                background: rgba(0, 0, 0, 0.2);\r\n                color: var(--text);\r\n                font-family: inherit;\r\n                font-size: 0.875rem;\r\n                font-weight: 400;\r\n                outline: none;\r\n                transition:\r\n                    border-color var(--transition-fast),\r\n                    background var(--transition-fast);\r\n            }\r\n\r\n            .search::placeholder {\r\n                color: var(--muted);\r\n                opacity: 0.6;\r\n            }\r\n\r\n            .search:focus {\r\n                border-color: var(--accent1);\r\n                background: rgba(0, 0, 0, 0.3);\r\n            }\r\n\r\n            \/* \u2500\u2500 GENRE PILLS \u2500\u2500 *\/\r\n            .genres {\r\n                display: flex;\r\n                flex-wrap: wrap;\r\n                gap: 5px;\r\n            }\r\n\r\n            .genre-btn {\r\n                padding: 5px 10px;\r\n                border-radius: 999px;\r\n                border: 1px solid var(--border);\r\n                font-family: inherit;\r\n                font-size: 0.72rem;\r\n                font-weight: 600;\r\n                cursor: pointer;\r\n                background: rgba(0, 0, 0, 0.15);\r\n                color: var(--muted);\r\n                transition:\r\n                    transform var(--transition-fast),\r\n                    border-color var(--transition-fast),\r\n                    background var(--transition-fast),\r\n                    color var(--transition-fast);\r\n                line-height: 1;\r\n            }\r\n\r\n            .genre-btn:hover {\r\n                transform: translateY(-1px);\r\n                border-color: var(--accent1);\r\n                color: var(--text);\r\n            }\r\n\r\n            .genre-btn.active {\r\n                background: linear-gradient(135deg, var(--accent1), var(--accent2));\r\n                color: #fff;\r\n                border-color: transparent;\r\n            }\r\n\r\n            \/* \u2500\u2500 FAVORITES \u2500\u2500 *\/\r\n            .favorites-list {\r\n                display: flex;\r\n                flex-direction: column;\r\n                gap: 6px;\r\n            }\r\n\r\n            .fav-item {\r\n                padding: 10px 12px;\r\n                border-radius: var(--radius-md);\r\n                border: 1px solid var(--border);\r\n                color: #fff;\r\n                cursor: pointer;\r\n                font-family: inherit;\r\n                font-size: 0.82rem;\r\n                font-weight: 600;\r\n                text-align: left;\r\n                background-size: cover;\r\n                background-position: center;\r\n                display: flex;\r\n                align-items: center;\r\n                transition:\r\n                    transform var(--transition-med),\r\n                    border-color var(--transition-med),\r\n                    filter var(--transition-med);\r\n                position: relative;\r\n                overflow: hidden;\r\n                min-height: 40px;\r\n            }\r\n\r\n            .fav-item::before {\r\n                content: \"\";\r\n                position: absolute;\r\n                inset: 0;\r\n                background: rgba(0, 0, 0, 0.45);\r\n                z-index: 0;\r\n            }\r\n\r\n            .fav-item span {\r\n                position: relative;\r\n                z-index: 1;\r\n            }\r\n\r\n            .fav-item:hover {\r\n                transform: translateY(-2px);\r\n                border-color: var(--accent1);\r\n                filter: brightness(1.15);\r\n            }\r\n\r\n            .fav-empty {\r\n                font-size: 0.78rem;\r\n                color: var(--muted);\r\n                opacity: 0.5;\r\n                padding: 4px;\r\n            }\r\n\r\n            \/* \u2500\u2500 THEME BUTTONS \u2500\u2500 *\/\r\n            .theme-btn {\r\n                display: flex;\r\n                align-items: center;\r\n                gap: 8px;\r\n                padding: 9px 12px;\r\n                border-radius: var(--radius-md);\r\n                border: 1px solid var(--border);\r\n                background: rgba(0, 0, 0, 0.15);\r\n                color: var(--muted);\r\n                font-family: inherit;\r\n                font-size: 0.82rem;\r\n                font-weight: 500;\r\n                cursor: pointer;\r\n                transition:\r\n                    transform var(--transition-fast),\r\n                    border-color var(--transition-fast),\r\n                    background var(--transition-fast),\r\n                    color var(--transition-fast);\r\n            }\r\n\r\n            .theme-btn:hover {\r\n                transform: translateY(-1px);\r\n                border-color: var(--accent1);\r\n                color: var(--text);\r\n            }\r\n\r\n            .theme-btn.active {\r\n                background: linear-gradient(135deg, var(--accent1), var(--accent2));\r\n                color: #fff;\r\n                border-color: transparent;\r\n            }\r\n\r\n            .theme-swatch {\r\n                width: 10px;\r\n                height: 10px;\r\n                border-radius: 50%;\r\n                flex-shrink: 0;\r\n            }\r\n\r\n            \/* \u2500\u2500 MAIN \u2500\u2500 *\/\r\n            .main {\r\n                flex: 1;\r\n                margin-left: 260px;\r\n                padding: 32px 32px 48px;\r\n            }\r\n\r\n            .header {\r\n                margin-bottom: 4px;\r\n            }\r\n\r\n            .header h1 {\r\n                font-size: 2.6rem;\r\n                font-weight: 800;\r\n                letter-spacing: -0.03em;\r\n                line-height: 1;\r\n            }\r\n\r\n            .header p {\r\n                margin-top: 6px;\r\n                font-size: 0.9rem;\r\n                color: var(--muted);\r\n                font-weight: 400;\r\n            }\r\n\r\n            \/* \u2500\u2500 GAME GRID \u2500\u2500 *\/\r\n            .container {\r\n                margin-top: 24px;\r\n                display: grid;\r\n                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));\r\n                gap: 16px;\r\n            }\r\n\r\n            .box {\r\n                position: relative;\r\n                overflow: hidden;\r\n                display: flex;\r\n                flex-direction: column;\r\n                min-height: 210px;\r\n                padding: 16px;\r\n                border-radius: var(--radius-xl);\r\n                border: 1px solid var(--border);\r\n                background: var(--card);\r\n                backdrop-filter: blur(10px);\r\n                -webkit-backdrop-filter: blur(10px);\r\n                animation: cardPopIn 0.35s ease both;\r\n                transition:\r\n                    transform var(--transition-med),\r\n                    box-shadow var(--transition-med),\r\n                    border-color var(--transition-med),\r\n                    filter var(--transition-med);\r\n                cursor: default;\r\n            }\r\n\r\n            .box:hover {\r\n                transform: translateY(-6px) scale(1.005);\r\n                filter: brightness(1.1);\r\n                border-color: var(--accent1);\r\n                box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);\r\n            }\r\n\r\n            .box * {\r\n                position: relative;\r\n                z-index: 1;\r\n            }\r\n\r\n            .box h3 {\r\n                font-size: 1.05rem;\r\n                font-weight: 700;\r\n                margin-bottom: 5px;\r\n                color: var(--cardText);\r\n                line-height: 1.2;\r\n            }\r\n\r\n            .box p {\r\n                font-size: 0.82rem;\r\n                line-height: 1.5;\r\n                color: var(--cardText);\r\n                opacity: 0.85;\r\n                flex: 1;\r\n                margin-bottom: 12px;\r\n            }\r\n\r\n            .card-top {\r\n                display: flex;\r\n                flex-direction: column;\r\n                gap: 8px;\r\n                margin-bottom: 8px;\r\n                flex: 1;\r\n            }\r\n\r\n            .card-topbar {\r\n                display: flex;\r\n                justify-content: space-between;\r\n                align-items: flex-start;\r\n                gap: 8px;\r\n            }\r\n\r\n            .genre-tags {\r\n                display: flex;\r\n                flex-wrap: wrap;\r\n                gap: 5px;\r\n            }\r\n\r\n            .genre-tag {\r\n                font-size: 0.67rem;\r\n                font-weight: 600;\r\n                padding: 3px 8px;\r\n                border-radius: 999px;\r\n                border: 1px solid var(--border);\r\n                color: var(--muted);\r\n                background: rgba(0, 0, 0, 0.2);\r\n                line-height: 1;\r\n            }\r\n\r\n            \/* \u2500\u2500 FAVORITE BUTTON \u2500\u2500 *\/\r\n            .favorite-btn {\r\n                width: 24px;\r\n                height: 24px;\r\n                flex-shrink: 0;\r\n                display: flex;\r\n                align-items: center;\r\n                justify-content: center;\r\n                padding: 0;\r\n                line-height: 1;\r\n                font-size: 13px;\r\n                border-radius: var(--radius-sm);\r\n                cursor: pointer;\r\n                background: rgba(0, 0, 0, 0.3);\r\n                border: 1px solid rgba(255, 255, 255, 0.12);\r\n                color: rgba(255, 255, 255, 0.5);\r\n                transition:\r\n                    transform var(--transition-fast),\r\n                    border-color var(--transition-fast),\r\n                    background var(--transition-fast),\r\n                    color var(--transition-fast),\r\n                    box-shadow var(--transition-fast);\r\n            }\r\n\r\n            .favorite-btn:hover {\r\n                transform: scale(1.1);\r\n                border-color: rgba(255, 213, 74, 0.5);\r\n                color: rgba(255, 213, 74, 0.8);\r\n            }\r\n\r\n            .favorite-btn.active {\r\n                color: #ffd54a;\r\n                border-color: rgba(255, 213, 74, 0.5);\r\n                background: rgba(255, 213, 74, 0.12);\r\n                box-shadow: 0 0 8px rgba(255, 213, 74, 0.3);\r\n                animation: favPop 0.25s ease;\r\n            }\r\n\r\n            .favorite-btn:active {\r\n                transform: scale(0.88);\r\n            }\r\n\r\n            \/* \u2500\u2500 LAUNCH BUTTON \u2500\u2500 *\/\r\n            .launch-btn {\r\n                width: 100%;\r\n                padding: 9px 14px;\r\n                border-radius: var(--radius-md);\r\n                border: none;\r\n                font-family: inherit;\r\n                font-size: 0.82rem;\r\n                font-weight: 700;\r\n                cursor: pointer;\r\n                background: linear-gradient(135deg, var(--accent1), var(--accent2));\r\n                color: #fff;\r\n                letter-spacing: 0.01em;\r\n                transition:\r\n                    filter var(--transition-fast),\r\n                    transform var(--transition-fast);\r\n                margin-top: auto;\r\n            }\r\n\r\n            .launch-btn:hover {\r\n                filter: brightness(1.15);\r\n                transform: translateY(-2px);\r\n            }\r\n\r\n            .launch-btn:active {\r\n                transform: translateY(1px);\r\n                filter: brightness(0.95);\r\n            }\r\n\r\n            \/* \u2500\u2500 TOP-RIGHT ICON BUTTONS \u2500\u2500 *\/\r\n            .icon-btn {\r\n                position: fixed;\r\n                top: 14px;\r\n                z-index: 1000;\r\n                width: 34px;\r\n                height: 34px;\r\n                border-radius: var(--radius-md);\r\n                border: 1px solid var(--border);\r\n                background: var(--card);\r\n                color: var(--muted);\r\n                cursor: pointer;\r\n                padding: 0;\r\n                display: flex;\r\n                align-items: center;\r\n                justify-content: center;\r\n                backdrop-filter: blur(14px);\r\n                -webkit-backdrop-filter: blur(14px);\r\n                transition:\r\n                    border-color var(--transition-fast),\r\n                    color var(--transition-fast),\r\n                    background var(--transition-fast),\r\n                    transform var(--transition-fast);\r\n            }\r\n\r\n            .icon-btn svg {\r\n                display: block;\r\n                flex-shrink: 0;\r\n            }\r\n\r\n            .icon-btn:hover {\r\n                border-color: var(--accent1);\r\n                color: var(--text);\r\n                transform: scale(1.06);\r\n            }\r\n\r\n            .icon-btn.active {\r\n                border-color: var(--accent1);\r\n                color: var(--accent1);\r\n                background: rgba(168, 85, 247, 0.1);\r\n            }\r\n\r\n            #cloak-btn {\r\n                right: 14px;\r\n            }\r\n            #settings-btn {\r\n                right: 56px;\r\n            }\r\n\r\n            \/* \u2500\u2500 PANELS \u2500\u2500 *\/\r\n            .panel {\r\n                position: fixed;\r\n                right: 14px;\r\n                z-index: 1000;\r\n                width: 295px;\r\n                background: var(--card);\r\n                border: 1px solid var(--border);\r\n                border-radius: var(--radius-xl);\r\n                backdrop-filter: blur(22px);\r\n                -webkit-backdrop-filter: blur(22px);\r\n                padding: 16px;\r\n                display: flex;\r\n                flex-direction: column;\r\n                gap: 12px;\r\n                opacity: 0;\r\n                pointer-events: none;\r\n                transform: translateY(-6px) scale(0.98);\r\n                transition:\r\n                    opacity 0.2s ease,\r\n                    transform 0.2s ease;\r\n            }\r\n\r\n            .panel.open {\r\n                opacity: 1;\r\n                pointer-events: all;\r\n                transform: translateY(0) scale(1);\r\n            }\r\n\r\n            #cloak-panel {\r\n                top: 56px;\r\n            }\r\n            #settings-panel {\r\n                top: 56px;\r\n            }\r\n\r\n            .panel-header h4 {\r\n                font-size: 0.9rem;\r\n                font-weight: 700;\r\n                color: var(--text);\r\n                margin-bottom: 2px;\r\n            }\r\n\r\n            .panel-header p {\r\n                font-size: 0.72rem;\r\n                color: var(--muted);\r\n                opacity: 0.7;\r\n            }\r\n\r\n            \/* \u2500\u2500 CLOAK PRESETS \u2500\u2500 *\/\r\n            .cloak-presets {\r\n                display: grid;\r\n                grid-template-columns: 1fr 1fr;\r\n                gap: 6px;\r\n            }\r\n\r\n            .preset-btn {\r\n                padding: 9px 8px;\r\n                border-radius: var(--radius-md);\r\n                border: 1px solid var(--border);\r\n                background: rgba(0, 0, 0, 0.15);\r\n                color: var(--muted);\r\n                cursor: pointer;\r\n                font-family: inherit;\r\n                font-size: 0.72rem;\r\n                font-weight: 600;\r\n                text-align: center;\r\n                display: flex;\r\n                flex-direction: column;\r\n                align-items: center;\r\n                gap: 5px;\r\n                transition:\r\n                    border-color var(--transition-fast),\r\n                    color var(--transition-fast),\r\n                    background var(--transition-fast),\r\n                    transform var(--transition-fast);\r\n            }\r\n\r\n            .preset-btn:hover {\r\n                border-color: var(--accent1);\r\n                color: var(--text);\r\n                transform: translateY(-1px);\r\n            }\r\n\r\n            .preset-btn.selected {\r\n                background: linear-gradient(135deg, var(--accent1), var(--accent2));\r\n                color: #fff;\r\n                border-color: transparent;\r\n            }\r\n\r\n            .preset-icon {\r\n                width: 18px;\r\n                height: 18px;\r\n                border-radius: 4px;\r\n                object-fit: contain;\r\n                display: block;\r\n            }\r\n\r\n            .preset-icon-fallback {\r\n                width: 18px;\r\n                height: 18px;\r\n                border-radius: 4px;\r\n                background: rgba(255, 255, 255, 0.1);\r\n                display: flex;\r\n                align-items: center;\r\n                justify-content: center;\r\n                font-size: 10px;\r\n            }\r\n\r\n            \/* \u2500\u2500 CLOAK INPUTS \u2500\u2500 *\/\r\n            .cloak-custom {\r\n                display: flex;\r\n                flex-direction: column;\r\n                gap: 6px;\r\n            }\r\n\r\n            .cloak-custom label {\r\n                font-size: 0.72rem;\r\n                font-weight: 600;\r\n                color: var(--muted);\r\n                opacity: 0.7;\r\n            }\r\n\r\n            .panel-input {\r\n                padding: 8px 10px;\r\n                border-radius: var(--radius-sm);\r\n                border: 1px solid var(--border);\r\n                background: rgba(0, 0, 0, 0.2);\r\n                color: var(--text);\r\n                font-family: inherit;\r\n                font-size: 0.8rem;\r\n                outline: none;\r\n                width: 100%;\r\n                transition:\r\n                    border-color var(--transition-fast),\r\n                    background var(--transition-fast);\r\n            }\r\n\r\n            .panel-input::placeholder {\r\n                color: var(--muted);\r\n                opacity: 0.5;\r\n            }\r\n            .panel-input:focus {\r\n                border-color: var(--accent1);\r\n                background: rgba(0, 0, 0, 0.3);\r\n            }\r\n\r\n            \/* \u2500\u2500 PANEL ACTION BUTTONS \u2500\u2500 *\/\r\n            .btn-primary {\r\n                padding: 9px 14px;\r\n                border-radius: var(--radius-md);\r\n                border: none;\r\n                cursor: pointer;\r\n                background: linear-gradient(135deg, var(--accent1), var(--accent2));\r\n                color: #fff;\r\n                font-family: inherit;\r\n                font-size: 0.82rem;\r\n                font-weight: 700;\r\n                transition:\r\n                    filter var(--transition-fast),\r\n                    transform var(--transition-fast);\r\n            }\r\n\r\n            .btn-primary:hover {\r\n                filter: brightness(1.12);\r\n                transform: translateY(-1px);\r\n            }\r\n            .btn-primary:active {\r\n                transform: translateY(0);\r\n                filter: brightness(0.95);\r\n            }\r\n\r\n            .btn-ghost {\r\n                padding: 8px 14px;\r\n                border-radius: var(--radius-md);\r\n                border: 1px solid var(--border);\r\n                cursor: pointer;\r\n                background: rgba(0, 0, 0, 0.15);\r\n                color: var(--muted);\r\n                font-family: inherit;\r\n                font-size: 0.8rem;\r\n                font-weight: 500;\r\n                transition:\r\n                    border-color var(--transition-fast),\r\n                    color var(--transition-fast),\r\n                    background var(--transition-fast),\r\n                    transform var(--transition-fast);\r\n            }\r\n\r\n            .btn-ghost:hover {\r\n                border-color: rgba(255, 100, 100, 0.45);\r\n                color: #ff7070;\r\n                transform: translateY(-1px);\r\n            }\r\n\r\n            .btn-ghost:active {\r\n                transform: translateY(0);\r\n            }\r\n\r\n            .cloak-status {\r\n                font-size: 0.72rem;\r\n                font-weight: 600;\r\n                text-align: center;\r\n                padding: 6px 10px;\r\n                border-radius: var(--radius-sm);\r\n                background: rgba(168, 85, 247, 0.08);\r\n                border: 1px solid rgba(168, 85, 247, 0.2);\r\n                color: var(--accent1);\r\n                display: none;\r\n            }\r\n\r\n            .cloak-status.visible {\r\n                display: block;\r\n            }\r\n\r\n            \/* \u2500\u2500 LOADING SCREEN \u2500\u2500 *\/\r\n            #loading-screen {\r\n                position: fixed;\r\n                inset: 0;\r\n                display: flex;\r\n                flex-direction: column;\r\n                justify-content: center;\r\n                align-items: center;\r\n                gap: 14px;\r\n                background: rgba(5, 8, 18, 0.88);\r\n                backdrop-filter: blur(12px);\r\n                -webkit-backdrop-filter: blur(12px);\r\n                z-index: 9999;\r\n                opacity: 0;\r\n                pointer-events: none;\r\n                transition: opacity 0.2s ease;\r\n            }\r\n\r\n            #loading-screen.active {\r\n                opacity: 1;\r\n                pointer-events: all;\r\n            }\r\n\r\n            .loader {\r\n                width: 42px;\r\n                height: 42px;\r\n                border: 3px solid rgba(255, 255, 255, 0.12);\r\n                border-top-color: var(--accent1);\r\n                border-radius: 50%;\r\n                animation: spin 0.8s linear infinite;\r\n            }\r\n\r\n            #loading-screen p {\r\n                font-size: 0.85rem;\r\n                font-weight: 500;\r\n                color: var(--muted);\r\n            }\r\n\r\n            \/* \u2500\u2500 TOAST POPUP \u2500\u2500 *\/\r\n            .toast {\r\n                position: fixed;\r\n                top: 18px;\r\n                left: 50%;\r\n                transform: translateX(-50%) translateY(-4px);\r\n                padding: 8px 16px;\r\n                border-radius: 999px;\r\n                font-size: 0.82rem;\r\n                font-weight: 600;\r\n                background: var(--card);\r\n                border: 1px solid var(--border);\r\n                backdrop-filter: blur(14px);\r\n                color: var(--text);\r\n                opacity: 0;\r\n                transition:\r\n                    opacity 0.2s ease,\r\n                    transform 0.2s ease;\r\n                z-index: 9999;\r\n                pointer-events: none;\r\n                white-space: nowrap;\r\n            }\r\n\r\n            .toast.show {\r\n                opacity: 1;\r\n                transform: translateX(-50%) translateY(0);\r\n            }\r\n\r\n            \/* \u2500\u2500 SCROLLBAR \u2500\u2500 *\/\r\n            ::-webkit-scrollbar {\r\n                width: 8px;\r\n            }\r\n            ::-webkit-scrollbar-track {\r\n                background: transparent;\r\n            }\r\n            ::-webkit-scrollbar-thumb {\r\n                background: linear-gradient(180deg, var(--accent1), var(--accent2));\r\n                border-radius: 8px;\r\n            }\r\n            * {\r\n                scrollbar-width: thin;\r\n                scrollbar-color: var(--accent1) transparent;\r\n            }\r\n\r\n            \/* \u2500\u2500 ANIMATIONS \u2500\u2500 *\/\r\n            @keyframes spin {\r\n                to {\r\n                    transform: rotate(360deg);\r\n                }\r\n            }\r\n\r\n            @keyframes favPop {\r\n                0% {\r\n                    transform: scale(0.75);\r\n                }\r\n                60% {\r\n                    transform: scale(1.25);\r\n                }\r\n                100% {\r\n                    transform: scale(1);\r\n                }\r\n            }\r\n\r\n            @keyframes cardPopIn {\r\n                from {\r\n                    opacity: 0;\r\n                    transform: translateY(12px);\r\n                }\r\n                to {\r\n                    opacity: 1;\r\n                    transform: translateY(0);\r\n                }\r\n            }\r\n\r\n            @media (prefers-reduced-motion: reduce) {\r\n                *,\r\n                *::before,\r\n                *::after {\r\n                    animation-duration: 0.01ms !important;\r\n                    transition-duration: 0.01ms !important;\r\n                }\r\n            }\r\n        <\/style>\r\n    <\/head>\r\n    <body>\r\n        \r\n        <button class=\"icon-btn\" id=\"cloak-btn\" title=\"Tab Cloaking\" aria-label=\"Tab Cloaking\">\r\n            <svg\r\n                width=\"16\"\r\n                height=\"16\"\r\n                viewBox=\"0 0 24 24\"\r\n                fill=\"none\"\r\n                stroke=\"currentColor\"\r\n                stroke-width=\"2\"\r\n                stroke-linecap=\"round\"\r\n                stroke-linejoin=\"round\"\r\n            >\r\n                <path d=\"M2 12C2 12 5 5 12 5s10 7 10 7-3 7-10 7S2 12 2 12z\" \/>\r\n                <circle cx=\"12\" cy=\"12\" r=\"3\" \/>\r\n                <line x1=\"3\" y1=\"3\" x2=\"21\" y2=\"21\" \/>\r\n            <\/svg>\r\n        <\/button>\r\n\r\n        <button class=\"icon-btn\" id=\"settings-btn\" title=\"Settings\" aria-label=\"Settings\">\r\n            <svg\r\n                width=\"16\"\r\n                height=\"16\"\r\n                viewBox=\"0 0 24 24\"\r\n                fill=\"none\"\r\n                stroke=\"currentColor\"\r\n                stroke-width=\"2\"\r\n                stroke-linecap=\"round\"\r\n                stroke-linejoin=\"round\"\r\n            >\r\n                <circle cx=\"12\" cy=\"12\" r=\"3\" \/>\r\n                <path\r\n                    d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z\"\r\n                \/>\r\n            <\/svg>\r\n        <\/button>\r\n\r\n        \r\n        <div class=\"panel\" id=\"cloak-panel\" role=\"dialog\" aria-label=\"Tab Cloaking\">\r\n            <div class=\"panel-header\">\r\n                <h4>Tab Cloaking<\/h4>\r\n                <p>Disguise this tab's title and favicon<\/p>\r\n            <\/div>\r\n            <div class=\"cloak-presets\" id=\"cloakPresets\">\r\n                <button\r\n                    class=\"preset-btn\"\r\n                    data-title=\"Dashboard\"\r\n                    data-icon=\"https:\/\/shorelineschools.instructure.com\/favicon.ico\"\r\n                >\r\n                    <img\r\n                        class=\"preset-icon\"\r\n                        src=\"https:\/\/shorelineschools.instructure.com\/favicon.ico\"\r\n                        alt=\"\"\r\n                        loading=\"lazy\"\r\n                    \/>\r\n                    Canvas\r\n                <\/button>\r\n                <button\r\n                    class=\"preset-btn\"\r\n                    data-title=\"Khan Academy\"\r\n                    data-icon=\"https:\/\/cdn.kastatic.org\/images\/favicon.ico\"\r\n                >\r\n                    <img class=\"preset-icon\" src=\"https:\/\/cdn.kastatic.org\/images\/favicon.ico\" alt=\"\" loading=\"lazy\" \/>\r\n                    Khan Academy\r\n                <\/button>\r\n                <button\r\n                    class=\"preset-btn\"\r\n                    data-title=\"Google Docs\"\r\n                    data-icon=\"https:\/\/ssl.gstatic.com\/images\/branding\/productlogos\/docs_2026\/v2\/ico\/docs_2026_32dp.ico\"\r\n                >\r\n                    <img\r\n                        class=\"preset-icon\"\r\n                        src=\"https:\/\/ssl.gstatic.com\/images\/branding\/productlogos\/docs_2026\/v2\/ico\/docs_2026_32dp.ico\"\r\n                        alt=\"\"\r\n                        loading=\"lazy\"\r\n                    \/>\r\n                    Google Docs\r\n                <\/button>\r\n                <button\r\n                    class=\"preset-btn\"\r\n                    data-title=\"Gmail\"\r\n                    data-icon=\"https:\/\/ssl.gstatic.com\/ui\/v1\/icons\/mail\/images\/favicon_gmail_2026_v2.ico\"\r\n                >\r\n                    <img\r\n                        class=\"preset-icon\"\r\n                        src=\"https:\/\/ssl.gstatic.com\/ui\/v1\/icons\/mail\/images\/favicon_gmail_2026_v2.ico\"\r\n                        alt=\"\"\r\n                        loading=\"lazy\"\r\n                    \/>\r\n                    Gmail\r\n                <\/button>\r\n                <button\r\n                    class=\"preset-btn\"\r\n                    data-title=\"Duolingo\"\r\n                    data-icon=\"https:\/\/d35aaqx5ub95lt.cloudfront.net\/favicon.ico\"\r\n                >\r\n                    <img\r\n                        class=\"preset-icon\"\r\n                        src=\"https:\/\/d35aaqx5ub95lt.cloudfront.net\/favicon.ico\"\r\n                        alt=\"\"\r\n                        loading=\"lazy\"\r\n                    \/>\r\n                    Duolingo\r\n                <\/button>\r\n                <button class=\"preset-btn\" data-title=\"Wikipedia\" data-icon=\"https:\/\/en.wikipedia.org\/favicon.ico\">\r\n                    <img class=\"preset-icon\" src=\"https:\/\/en.wikipedia.org\/favicon.ico\" alt=\"\" loading=\"lazy\" \/>\r\n                    Wikipedia\r\n                <\/button>\r\n            <\/div>\r\n            <div class=\"cloak-custom\">\r\n                <label for=\"custom-title\">Custom title &amp; favicon URL<\/label>\r\n                <input class=\"panel-input\" id=\"custom-title\" placeholder=\"Tab title...\" \/>\r\n                <input class=\"panel-input\" id=\"custom-favicon\" placeholder=\"Favicon URL (optional)\" \/>\r\n            <\/div>\r\n            <button class=\"btn-primary\" id=\"apply-cloak\">Apply Cloak<\/button>\r\n            <button class=\"btn-ghost\" id=\"reset-cloak\">Reset to original<\/button>\r\n            <div class=\"cloak-status\" id=\"cloak-status\">Cloaking active \u2713<\/div>\r\n        <\/div>\r\n\r\n        \r\n        <div class=\"panel\" id=\"settings-panel\" role=\"dialog\" aria-label=\"Settings\">\r\n            <div class=\"panel-header\"><h4>Settings<\/h4><\/div>\r\n            <div class=\"sidebar-label\">Theme<\/div>\r\n            <div id=\"themeBar\" style=\"display: flex; flex-direction: column; gap: 6px\">\r\n                <button class=\"theme-btn active\" data-theme=\"dark\">\r\n                    <span class=\"theme-swatch\" style=\"background: linear-gradient(135deg, #7c3aed, #2563eb)\"><\/span>Dark\r\n                <\/button>\r\n                <button class=\"theme-btn\" data-theme=\"tokyoNight\">\r\n                    <span class=\"theme-swatch\" style=\"background: linear-gradient(135deg, #ff4fd8, #6336c0)\"><\/span\r\n                    >Tokyo Night\r\n                <\/button>\r\n                <button class=\"theme-btn\" data-theme=\"rootbeer\">\r\n                    <span class=\"theme-swatch\" style=\"background: linear-gradient(135deg, #a0522d, #d4956a)\"><\/span>Root\r\n                    Beer\r\n                <\/button>\r\n            <\/div>\r\n        <\/div>\r\n\r\n        \r\n        <aside class=\"sidebar\">\r\n            <div class=\"logo\">\r\n               \u2727 Banana Town\r\n            <\/div>\r\n            <input class=\"search\" id=\"search\" placeholder=\"Search games\u2026\" autocomplete=\"off\" \/>\r\n            <div class=\"genres\" id=\"genreBar\"><\/div>\r\n            <hr \/>\r\n            <div class=\"sidebar-label\">Favorites<\/div>\r\n            <div class=\"favorites-list\" id=\"favoritesBar\"><\/div>\r\n        <\/aside>\r\n\r\n        \r\n        <main class=\"main\">\r\n            <div class=\"header\">\r\n                <h1>Games<\/h1>\r\n                <p>Search, filter, and launch instantly<\/p>\r\n            <\/div>\r\n            <div class=\"container\" id=\"boxContainer\"><\/div>\r\n        <\/main>\r\n\r\n        \r\n        <div id=\"loading-screen\" aria-live=\"polite\">\r\n            <div class=\"loader\"><\/div>\r\n            <p>Launching game\u2026<\/p>\r\n        <\/div>\r\n\r\n        <script>\r\n            const data = [\r\n                {\r\n                    name: \"Appel\",\r\n                    description: \"Bounce off surfaces to get shiny apples!\",\r\n                    genres: [\"Action\", \"Platformer\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/appel.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/Appel.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Backrooms\",\r\n                    description: \"Endless yellow nightmare.\",\r\n                    genres: [\"Horror\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/backrooms.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/Backrooms.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Balatro\",\r\n                    description: \"Play poker to defeat crazy bosses.\",\r\n                    genres: [\"Card\", \"Action\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/balatro.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/Balatro.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Baseball Bros\",\r\n                    description: \"Fun baseball 2-player game.\",\r\n                    genres: [\"Sports\", \"2 Player\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/baseballbros.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/BaseballBros.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Basket Bros\",\r\n                    description: \"Fun basketball game with friends.\",\r\n                    genres: [\"Sports\", \"2 Player\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/basketbros.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/BasketBros.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Basketball Stars\",\r\n                    description: \"Solo or 2-player basketball with LeBron.\",\r\n                    genres: [\"Sports\", \"2 Player\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/basketballstars.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/BasketballStars.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Blocky Snakes\",\r\n                    description: \"Slither.io but in 3D \u2014 ignore the popup.\",\r\n                    genres: [\"Action\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/blockysnakes.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/BlockySnakes.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"BLUMGI Racers\",\r\n                    description: \"Fun cartoon platforming driving game.\",\r\n                    genres: [\"Driving\", \"Platformer\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/blumgiracers.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/BlumgiRacers.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Capybara Clicker\",\r\n                    description: \"Click a capybara into mammalian stardom.\",\r\n                    genres: [\"Idle\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/capybaraclicker.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/CapybaraClicker.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Car King Arena\",\r\n                    description: \"King of the hill but with cool cars. Change language at top right.\",\r\n                    genres: [\"Driving\", \"Action\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/carkingarena.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/CarKingArena.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Cleanup.io\",\r\n                    description: \"Race to vacuum up the most of the map.\",\r\n                    genres: [\"Action\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/cleanupio.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/CleanUpio.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Cluster Rush\",\r\n                    description: \"Jump across moving trucks to reach the end.\",\r\n                    genres: [\"Runner\", \"Action\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/clusterrush.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/ClusterRush.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Cookie Clicker\",\r\n                    description: \"Click a cookie and become the galaxy's best baker.\",\r\n                    genres: [\"Idle\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/cookieclicker.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/CookieClicker.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Crazy Cars\",\r\n                    description: \"Car obstacle course. Bonus rocket league mode for two players.\",\r\n                    genres: [\"Driving\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/crazycars.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/CrazyCars.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Crazy Motorcycle\",\r\n                    description: \"Play as Minecraft Steve on a motorcycle.\",\r\n                    genres: [\"Driving\", \"Runner\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/crazymotorcycle.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/CrazyMotorcycle.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Crossy Road\",\r\n                    description: \"You are a chicken crossing the road. Don't die.\",\r\n                    genres: [\"Arcade\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/crossyroad.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/CrossyRoad.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Cupcakes 2048\",\r\n                    description: \"Merge delectable goodies to reach 2048.\",\r\n                    genres: [\"Puzzle\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/2048cupcakes.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/Cupcakes2048.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Dadish\",\r\n                    description: \"Save your little radish children as Dadish.\",\r\n                    genres: [\"Platformer\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/dadish1.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/Dadish.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Dadish 2\",\r\n                    description: \"Dadish is back \u2014 this time in the office!\",\r\n                    genres: [\"Platformer\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/dadish2.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/Dadish2.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Drive Mad\",\r\n                    description: \"Complete driving levels with increasingly wild cars.\",\r\n                    genres: [\"Driving\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/drivemad.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/DriveMad.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Drift Boss\",\r\n                    description: \"Drift around corners \u2014 don't fall off!\",\r\n                    genres: [\"Driving\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/driftboss.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/DriftBoss.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Dread Head Parkour\",\r\n                    description: \"A guy with dreads doing parkour.\",\r\n                    genres: [\"Platformer\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/dreadheadparkour.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/DreadheadParkour.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Eggy Car\",\r\n                    description: \"Balance an egg on a car going uphill. Don't break it.\",\r\n                    genres: [\"Driving\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/eggycar.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/EggyCar.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Elastic Face\",\r\n                    description: \"Stretch and disfigure a face.\",\r\n                    genres: [\"Other\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/elasticface.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/ElasticFace.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Evil Glitch\",\r\n                    description: \"Retro space shooter.\",\r\n                    genres: [\"Arcade\", \"Action\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/evilglitch.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/EvilGlitch.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Five Nights At Freddy's\",\r\n                    description: \"Don't let the animatronics get you. Press C \u2014 it won't skip to the end.\",\r\n                    genres: [\"Horror\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/fnaf.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/FNAF.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Five Nights At Freddy's 2\",\r\n                    description: \"More animatronics, more terror.\",\r\n                    genres: [\"Horror\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/fnaf2.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/FNAF2.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Five Nights At Freddy's 3\",\r\n                    description: \"Set thirty years later.\",\r\n                    genres: [\"Horror\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/fnaf3.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/FNAF3.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Five Nights At Freddy's 4\",\r\n                    description: \"FNaF but in a house. Kinda janky.\",\r\n                    genres: [\"Horror\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/fnaf4.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/FNAF4.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Flappy Bird\",\r\n                    description: \"Flap through pipes in this classic.\",\r\n                    genres: [\"Arcade\", \"Platformer\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/flappybird.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/FlappyBird.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Fluid Simulator\",\r\n                    description: \"Play with colorful glowing fluid.\",\r\n                    genres: [\"Other\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/fluidsimulator.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/FluidSimulator.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Football Legends\",\r\n                    description: \"1 or 2 player soccer.\",\r\n                    genres: [\"Sports\", \"2 Player\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/footballlegends.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/FootballLegends.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Football Bros\",\r\n                    description: \"1 or 2 player American football.\",\r\n                    genres: [\"Sports\", \"2 Player\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/footballbros.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/FootballBros.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Fruit Ninja\",\r\n                    description: \"Slice fruit, not the bombs.\",\r\n                    genres: [\"Action\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/fruitninja.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/FruitNinja.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Funny Battle\",\r\n                    description: \"Drag and drop troops to fight enemies.\",\r\n                    genres: [\"Action\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/funnybattle.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/FunnyBattle.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Funny Shooter\",\r\n                    description: \"3D shooter \u2014 survive waves of enemies.\",\r\n                    genres: [\"Shooter\", \"Action\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/funnyshooter2.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/FunnyShooter.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Geometry Dash Lite\",\r\n                    description: \"Worse than GD but better than Scratch.\",\r\n                    genres: [\"Platformer\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/geometrydashlite.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/GeometryDash.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Geometry Vibes\",\r\n                    description: \"GD wave game \u2014 don't click the ad buttons, they'll crash your game.\",\r\n                    genres: [\"Platformer\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/geometryvibes.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/GeometryVibes.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Granny\",\r\n                    description: \"Don't let granny get you!\",\r\n                    genres: [\"Horror\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/granny.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/Granny.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Guess Their Answer\",\r\n                    description: \"Fun trivia-style game.\",\r\n                    genres: [\"Word\", \"Puzzle\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/guesstheiranswer.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/GuessTheirAnswer.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Helix Jump\",\r\n                    description: \"Avoid the kill tiles in this challenging game (a little buggy).\",\r\n                    genres: [\"Platformer\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/helixjump.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/HelixJump.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"House Of Hazards\",\r\n                    description: \"A house full of hazards.\",\r\n                    genres: [\"Platformer\", \"2 Player\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/houseofhazards.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/HouseOfHazards.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Hover Racer Drive\",\r\n                    description: \"Weave through pillars as far as you can.\",\r\n                    genres: [\"Driving\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/hoverracerdrive.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/HoverRacerDrive.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Johnny Trigger\",\r\n                    description: \"Flip around shooting enemies in this action game.\",\r\n                    genres: [\"Shooter\", \"Action\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/johnnytrigger.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/JohnnyTrigger.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Level Devil\",\r\n                    description: \"A tricky game that constantly trolls you.\",\r\n                    genres: [\"Platformer\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/leveldevil.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/LevelDevil.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Piano Tiles\",\r\n                    description: \"Rhythmic song tiles game.\",\r\n                    genres: [\"Action\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/PianoTiles.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/PianoTiles.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Mario 64\",\r\n                    description: \"Run around and collect stars.\",\r\n                    genres: [\"Arcade\", \"Action\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/mario64.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/Mario64.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Minecraft\",\r\n                    description: \"Version 1.8 \u2014 1.12 coming soon.\",\r\n                    genres: [\"Sandbox\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/1.8.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/Minecraft.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Monkey Mart\",\r\n                    description: \"You're a monkey running a general store.\",\r\n                    genres: [\"Idle\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/monkeymart.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/MonkeyMart.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"MotoX3M\",\r\n                    description: \"Dirt bike riding game \u2014 go fullscreen.\",\r\n                    genres: [\"Driving\", \"Platformer\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/motox3m.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/MotoX3M.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Noob Miner\",\r\n                    description: \"Minecraft-like 2D sandbox.\",\r\n                    genres: [\"Sandbox\", \"Platformer\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/noobminer.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/NoobMiner.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"OvO\",\r\n                    description: \"Stickman parkour.\",\r\n                    genres: [\"Platformer\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/ovo.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/OvO.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Paper.io\",\r\n                    description: \"Fill the board with your colored juice.\",\r\n                    genres: [\"Action\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/paperio2.htm\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/Paperio.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"PolyTrack\",\r\n                    description: \"Race your best time on this F1 sim.\",\r\n                    genres: [\"Driving\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/polytrack.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/PolyTrack.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Ragdoll Archers\",\r\n                    description: \"Fun archery game with tons of arrow types.\",\r\n                    genres: [\"Shooter\", \"Action\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/ragdollarchers.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/RagdollArchers.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Retro Bowl\",\r\n                    description: \"Football manager sim.\",\r\n                    genres: [\"Sports\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/retrobowl.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/RetroBowl.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Retro Bowl College\",\r\n                    description: \"The college edition.\",\r\n                    genres: [\"Sports\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/retrobowlcollege.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/RetroBowlCollege.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Run 3\",\r\n                    description: \"Space alien platformer.\",\r\n                    genres: [\"Runner\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/run3.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/Run3.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Slope\",\r\n                    description: \"Navigate tight gaps and survive as long as you can.\",\r\n                    genres: [\"Runner\", \"Arcade\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/slope.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/Slope.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Snowball.io\",\r\n                    description: \"Build a snowball and chuck it at other players.\",\r\n                    genres: [\"Action\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/snowballio.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/Snowballio.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Space Bar Clicker\",\r\n                    description: \"Fun idle clicker.\",\r\n                    genres: [\"Idle\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/spacebarclicker.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/SpacebarClicker.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Stack\",\r\n                    description: \"Timing-based tile stacking.\",\r\n                    genres: [\"Puzzle\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/stack.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/Stack.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Stack-Tris\",\r\n                    description: \"Tetris with physics.\",\r\n                    genres: [\"Puzzle\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/stacktris.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/Stacktris.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"State.io\",\r\n                    description: \"Steal land by dragging arrows.\",\r\n                    genres: [\"Action\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/stateio.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/Stateio.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Stick Fighter\",\r\n                    description: \"Stick guy fights other stick guys.\",\r\n                    genres: [\"Action\", \"2 Player\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/stickfighter.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/StickFighter.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Stickman Hook\",\r\n                    description: \"Fun rope-swinging platformer.\",\r\n                    genres: [\"Platformer\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/stickmanhook.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/StickmanHook.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Stick Merge\",\r\n                    description: \"Engaging gun merging action game.\",\r\n                    genres: [\"Action\",\"Puzzle\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/stick-merge.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/StickMerge.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Subway Surfers\",\r\n                    description: \"Classic endless runner \u2014 Beijing version only.\",\r\n                    genres: [\"Runner\", \"Action\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/subwaysurfers.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/SubwaySurfers.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Tag\",\r\n                    description: \"2\u20134 players. Toggle powerups for a wilder game.\",\r\n                    genres: [\"Action\", \"2 Player\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/tag.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/Tag.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Tap Road\",\r\n                    description: \"Tap to switch tracks \u2014 don't get hit.\",\r\n                    genres: [\"Action\", \"Runner\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/taproad.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/TapRoad.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Temple Run\",\r\n                    description: \"Escape the temple before the monster gets you!\",\r\n                    genres: [\"Runner\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/templerun2.htm\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/TempleRun.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Time Shooter 2\",\r\n                    description: \"Time moves when you move.\",\r\n                    genres: [\"Shooter\", \"Action\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/timeshooter2.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/TimeShooter2.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Time Shooter 3\",\r\n                    description: \"More Time Shooter \u2014 slightly different.\",\r\n                    genres: [\"Shooter\", \"Action\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/timeshooter3.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/TimeShooter3.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"TinyFishing\",\r\n                    description: \"Relaxing fish-catching game.\",\r\n                    genres: [\"Idle\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/tinyfishing.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/TinyFishing.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Tomb Of The Mask\",\r\n                    description: \"Tomb sliding puzzle.\",\r\n                    genres: [\"Platformer\", \"Action\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/tombofthemask.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/TombOfTheMask.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Tunnel Rush\",\r\n                    description: \"Rush through colorful tunnels.\",\r\n                    genres: [\"Runner\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/tunnelrush.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/TunnelRush.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Unlimited Wordle\",\r\n                    description: \"The popular NYT Wordle \u2014 unlimited plays.\",\r\n                    genres: [\"Word\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/wordleunlimited.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/Wordle.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"Zombie Rush\",\r\n                    description: \"Like Survivor.io.\",\r\n                    genres: [\"Shooter\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/zombierush.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/ZombieRush.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"8 Ball Classic\",\r\n                    description: \"Play pool.\",\r\n                    genres: [\"Sports\", \"2 Player\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/8ballclassic.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/8Ball.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"10 Minutes Till Dawn\",\r\n                    description: \"Pixel alien-killing game.\",\r\n                    genres: [\"Shooter\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/10minutestilldawn.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/10MinutesTillDawn.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"60 Second Burger Run\",\r\n                    description: \"Chubby guy looking for a burger.\",\r\n                    genres: [\"Platformer\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/60s_burger_run_standalone.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/60SecondBurgerRun.jpg?raw=true\",\r\n                },\r\n                {\r\n                    name: \"2048\",\r\n                    description: \"Number-merging puzzle.\",\r\n                    genres: [\"Puzzle\"],\r\n                    url: \"https:\/\/raw.githubusercontent.com\/CorduroyBrick49\/Games\/refs\/heads\/main\/2048.html\",\r\n                    image: \"https:\/\/github.com\/CorduroyBrick49\/Games\/blob\/main\/Images\/2048.jpg?raw=true\",\r\n                },\r\n            ];\r\n\r\n            \/* \u2500\u2500 SVG ICONS \u2500\u2500 *\/\r\n            const ICON_EYE_OFF = `<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2 12C2 12 5 5 12 5s10 7 10 7-3 7-10 7S2 12 2 12z\"\/><circle cx=\"12\" cy=\"12\" r=\"3\"\/><line x1=\"3\" y1=\"3\" x2=\"21\" y2=\"21\"\/><\/svg>`;\r\n            const ICON_EYE_ON = `<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2 12C2 12 5 5 12 5s10 7 10 7-3 7-10 7S2 12 2 12z\"\/><circle cx=\"12\" cy=\"12\" r=\"3\"\/><\/svg>`;\r\n\r\n            \/* \u2500\u2500 DOM REFS \u2500\u2500 *\/\r\n            const DOM = {\r\n                container: document.getElementById(\"boxContainer\"),\r\n                search: document.getElementById(\"search\"),\r\n                genreBar: document.getElementById(\"genreBar\"),\r\n                favoritesBar: document.getElementById(\"favoritesBar\"),\r\n                themeBtns: document.querySelectorAll(\".theme-btn\"),\r\n                loader: document.getElementById(\"loading-screen\"),\r\n                cloakBtn: document.getElementById(\"cloak-btn\"),\r\n                cloakPanel: document.getElementById(\"cloak-panel\"),\r\n                settingsBtn: document.getElementById(\"settings-btn\"),\r\n                settingsPanel: document.getElementById(\"settings-panel\"),\r\n            };\r\n\r\n            \/* \u2500\u2500 STATE \u2500\u2500 *\/\r\n            const STATE = {\r\n                activeGenre: \"All\",\r\n                favorites: JSON.parse(localStorage.getItem(\"atlas_favorites\") || \"[]\"),\r\n                MAX_FAVORITES: 5,\r\n            };\r\n\r\n            \/* \u2500\u2500 THEMES \u2500\u2500 *\/\r\n            const THEMES = {\r\n                dark: {\r\n                    bg: \"linear-gradient(135deg,#05060a,#0b0f1a,#120a1f)\",\r\n                    card: \"rgba(15,15,25,0.8)\",\r\n                    border: \"rgba(120,90,255,0.25)\",\r\n                    text: \"#ffffff\",\r\n                    muted: \"#a9b0c3\",\r\n                    accent1: \"#7c3aed\",\r\n                    accent2: \"#2563eb\",\r\n                    cardText: \"#d3d3d3\",\r\n                    bgImage: null,\r\n                },\r\n                tokyoNight: {\r\n                    bg: \"linear-gradient(135deg,#0B0F1A 0%,#141026 50%,#1A1230 100%)\",\r\n                    card: \"rgba(25,20,45,0.72)\",\r\n                    border: \"rgba(255,105,180,0.25)\",\r\n                    text: \"#EDE7F6\",\r\n                    muted: \"#A79BC7\",\r\n                    accent1: \"#FF4FD8\",\r\n                    accent2: \"#A79BC7\",\r\n                    cardText: \"#F5F0FF\",\r\n                    bgImage: \"https:\/\/github.com\/CorduroyBrick49\/Themes\/blob\/main\/TokyoCity.gif?raw=true\",\r\n                },\r\n                rootbeer: {\r\n                    bg: \"linear-gradient(135deg,#1A0F05 0%,#2E1A0A 45%,#3D2410 100%)\",\r\n                    card: \"rgba(45,25,8,0.78)\",\r\n                    border: \"rgba(180,110,40,0.22)\",\r\n                    text: \"#F5E6D0\",\r\n                    muted: \"#B8946A\",\r\n                    accent1: \"#A0522D\",\r\n                    accent2: \"#D4956A\",\r\n                    cardText: \"#FFF3E0\",\r\n                    bgImage: \"https:\/\/github.com\/CorduroyBrick49\/Themes\/blob\/main\/rootbeer.png?raw=true\",\r\n                },\r\n            };\r\n\r\n            \/* \u2500\u2500 THEME \u2500\u2500 *\/\r\n            const Theme = {\r\n                apply(name) {\r\n                    const t = THEMES[name];\r\n                    if (!t) return;\r\n                    const r = document.documentElement;\r\n                    const map = {\r\n                        \"--bg\": t.bg,\r\n                        \"--card\": t.card,\r\n                        \"--border\": t.border,\r\n                        \"--text\": t.text,\r\n                        \"--muted\": t.muted,\r\n                        \"--accent1\": t.accent1,\r\n                        \"--accent2\": t.accent2,\r\n                        \"--cardText\": t.cardText,\r\n                        \"--bg-image\": t.bgImage ? `url(${t.bgImage})` : \"none\",\r\n                    };\r\n                    Object.entries(map).forEach(([k, v]) => r.style.setProperty(k, v));\r\n                    localStorage.setItem(\"atlas_theme\", name);\r\n                    DOM.themeBtns.forEach((b) => b.classList.toggle(\"active\", b.dataset.theme === name));\r\n                },\r\n                getPreferred() {\r\n                    const saved = localStorage.getItem(\"atlas_theme\");\r\n                    if (saved && THEMES[saved]) return saved;\r\n                    return window.matchMedia(\"(prefers-color-scheme: dark)\").matches ? \"dark\" : \"light\";\r\n                },\r\n                init() {\r\n                    DOM.themeBtns.forEach((btn) => {\r\n                        btn.onclick = (e) => {\r\n                            e.stopPropagation();\r\n                            Theme.apply(btn.dataset.theme);\r\n                        };\r\n                    });\r\n                },\r\n            };\r\n\r\n            \/* \u2500\u2500 TOAST \u2500\u2500 *\/\r\n            const Toast = {\r\n                el: null,\r\n                timer: null,\r\n                show(msg) {\r\n                    if (!this.el) {\r\n                        this.el = document.createElement(\"div\");\r\n                        this.el.className = \"toast\";\r\n                        document.body.appendChild(this.el);\r\n                    }\r\n                    this.el.textContent = msg;\r\n                    clearTimeout(this.timer);\r\n                    requestAnimationFrame(() => {\r\n                        this.el.classList.add(\"show\");\r\n                        this.timer = setTimeout(() => this.el.classList.remove(\"show\"), 2000);\r\n                    });\r\n                },\r\n            };\r\n\r\n            \/* \u2500\u2500 FAVORITES \u2500\u2500 *\/\r\n            const Favorites = {\r\n                save() {\r\n                    localStorage.setItem(\"atlas_favorites\", JSON.stringify(STATE.favorites));\r\n                    this.render();\r\n                },\r\n                toggle(item) {\r\n                    const idx = STATE.favorites.findIndex((f) => f.name === item.name);\r\n                    if (idx === -1) {\r\n                        if (STATE.favorites.length >= STATE.MAX_FAVORITES) {\r\n                            Toast.show(\"Max 5 favorites reached\");\r\n                            return;\r\n                        }\r\n                        STATE.favorites.push(item);\r\n                        Toast.show(`\u2605 Added \"${item.name}\"`);\r\n                    } else {\r\n                        STATE.favorites.splice(idx, 1);\r\n                        Toast.show(`Removed \"${item.name}\"`);\r\n                    }\r\n                    this.save();\r\n                    this.updateStars();\r\n                },\r\n                render() {\r\n                    DOM.favoritesBar.innerHTML = \"\";\r\n                    if (!STATE.favorites.length) {\r\n                        DOM.favoritesBar.innerHTML = `<div class=\"fav-empty\">No favorites yet<\/div>`;\r\n                        return;\r\n                    }\r\n                    STATE.favorites.forEach((item) => {\r\n                        const btn = document.createElement(\"button\");\r\n                        btn.className = \"fav-item\";\r\n                        btn.style.backgroundImage = `url(${item.image})`;\r\n                        btn.innerHTML = `<span>${item.name}<\/span>`;\r\n                        btn.onclick = () => Game.open(item.url);\r\n                        DOM.favoritesBar.appendChild(btn);\r\n                    });\r\n                },\r\n                updateStars() {\r\n                    document.querySelectorAll(\".box\").forEach((box) => {\r\n                        const name = box.querySelector(\"h3\").textContent;\r\n                        box.querySelector(\".favorite-btn\").classList.toggle(\r\n                            \"active\",\r\n                            STATE.favorites.some((f) => f.name === name)\r\n                        );\r\n                    });\r\n                },\r\n            };\r\n\r\n            \/* \u2500\u2500 GAME LAUNCHER \u2500\u2500 *\/\r\n            const Game = {\r\n                open(url) {\r\n                    DOM.loader.classList.add(\"active\");\r\n                    setTimeout(() => {\r\n                        fetch(url)\r\n                            .then((r) => r.text())\r\n                            .then((html) => {\r\n                                const base = url.slice(0, url.lastIndexOf(\"\/\") + 1);\r\n                                html = \/<head\/i.test(html)\r\n                                    ? html.replace(\/<head([^>]*)>\/i, `<head$1><base href=\"${base}\">`)\r\n                                    : `<head><base href=\"${base}\"><\/head>` + html;\r\n                                const w = window.open(\"about:blank\");\r\n                                w.document.write(html);\r\n                                w.document.close();\r\n                                DOM.loader.classList.remove(\"active\");\r\n                            })\r\n                            .catch(() => {\r\n                                DOM.loader.classList.remove(\"active\");\r\n                                Toast.show(\"Failed to load game.\");\r\n                            });\r\n                    }, 350);\r\n                },\r\n            };\r\n\r\n            \/* \u2500\u2500 GENRES \u2500\u2500 *\/\r\n            const Genres = {\r\n                init() {\r\n                    const genres = [\"All\", ...new Set(data.flatMap((g) => g.genres))];\r\n                    genres.forEach((g) => {\r\n                        const btn = document.createElement(\"button\");\r\n                        btn.className = \"genre-btn\" + (g === \"All\" ? \" active\" : \"\");\r\n                        btn.textContent = g;\r\n                        btn.onclick = () => {\r\n                            document.querySelectorAll(\".genre-btn\").forEach((b) => b.classList.remove(\"active\"));\r\n                            btn.classList.add(\"active\");\r\n                            STATE.activeGenre = g;\r\n                            Filters.apply();\r\n                        };\r\n                        DOM.genreBar.appendChild(btn);\r\n                    });\r\n                },\r\n            };\r\n\r\n            \/* \u2500\u2500 CARD RENDERING \u2500\u2500 *\/\r\n            const UI = {\r\n                render(list) {\r\n                    DOM.container.innerHTML = \"\";\r\n                    if (!list.length) {\r\n                        DOM.container.innerHTML = `<div style=\"grid-column:1\/-1;color:var(--muted);opacity:.6;padding:40px 0;font-size:.9rem;\">No games found.<\/div>`;\r\n                        return;\r\n                    }\r\n                    list.forEach((item, i) => {\r\n                        const isFav = STATE.favorites.some((f) => f.name === item.name);\r\n                        const box = document.createElement(\"div\");\r\n                        box.className = \"box\";\r\n                        box.style.animationDelay = `${Math.min(i * 0.04, 0.5)}s`;\r\n                        box.dataset.image = item.image;\r\n\r\n                        box.innerHTML = `\r\n                        <div class=\"card-top\">\r\n                            <div class=\"card-topbar\">\r\n                                <div class=\"genre-tags\">${item.genres.map((g) => `<span class=\"genre-tag\">${g}<\/span>`).join(\"\")}<\/div>\r\n                                <button class=\"favorite-btn${isFav ? \" active\" : \"\"}\" aria-label=\"Favorite ${item.name}\" title=\"${isFav ? \"Remove from favorites\" : \"Add to favorites\"}\">\u2605<\/button>\r\n                            <\/div>\r\n                            <h3>${item.name}<\/h3>\r\n                            <p>${item.description}<\/p>\r\n                        <\/div>\r\n                        <button class=\"launch-btn\">Launch Game<\/button>\r\n                    `;\r\n\r\n                        box.querySelector(\".favorite-btn\").onclick = (e) => {\r\n                            e.stopPropagation();\r\n                            Favorites.toggle(item);\r\n                        };\r\n                        box.querySelector(\".launch-btn\").onclick = () => Game.open(item.url);\r\n                        DOM.container.appendChild(box);\r\n                    });\r\n                    this.lazyLoad();\r\n                },\r\n\r\n                lazyLoad() {\r\n                    const obs = new IntersectionObserver(\r\n                        (entries, o) => {\r\n                            entries.forEach((entry) => {\r\n                                if (!entry.isIntersecting) return;\r\n                                const box = entry.target;\r\n                                if (box.dataset.image) {\r\n                                    box.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.52),rgba(0,0,0,0.52)),url(${box.dataset.image})`;\r\n                                    box.style.backgroundSize = \"cover\";\r\n                                    box.style.backgroundPosition = \"center\";\r\n                                }\r\n                                o.unobserve(box);\r\n                            });\r\n                        },\r\n                        { rootMargin: \"250px\" }\r\n                    );\r\n                    document.querySelectorAll(\".box[data-image]\").forEach((b) => obs.observe(b));\r\n                },\r\n            };\r\n\r\n            \/* \u2500\u2500 FILTERS \u2500\u2500 *\/\r\n            const Filters = {\r\n                apply() {\r\n                    const q = DOM.search.value.toLowerCase().trim();\r\n                    const filtered = data.filter((item) => {\r\n                        const textMatch =\r\n                            !q ||\r\n                            item.name.toLowerCase().includes(q) ||\r\n                            item.description.toLowerCase().includes(q) ||\r\n                            item.genres.some((g) => g.toLowerCase().includes(q));\r\n                        const genreMatch = STATE.activeGenre === \"All\" || item.genres.includes(STATE.activeGenre);\r\n                        return textMatch && genreMatch;\r\n                    });\r\n                    UI.render(filtered);\r\n                },\r\n            };\r\n\r\n            \/* \u2500\u2500 PANELS \u2500\u2500 *\/\r\n            const Panels = {\r\n                closeAll() {\r\n                    [DOM.cloakPanel, DOM.settingsPanel].forEach((p) => p.classList.remove(\"open\"));\r\n                    [DOM.cloakBtn, DOM.settingsBtn].forEach((b) => b.classList.remove(\"active\"));\r\n                },\r\n                toggle(panel, button) {\r\n                    const wasOpen = panel.classList.contains(\"open\");\r\n                    this.closeAll();\r\n                    if (!wasOpen) {\r\n                        panel.classList.add(\"open\");\r\n                        button.classList.add(\"active\");\r\n                    }\r\n                },\r\n                init() {\r\n                    DOM.cloakBtn.onclick = (e) => {\r\n                        e.stopPropagation();\r\n                        Panels.toggle(DOM.cloakPanel, DOM.cloakBtn);\r\n                    };\r\n                    DOM.settingsBtn.onclick = (e) => {\r\n                        e.stopPropagation();\r\n                        Panels.toggle(DOM.settingsPanel, DOM.settingsBtn);\r\n                    };\r\n                    document.addEventListener(\"click\", (e) => {\r\n                        if (\r\n                            !DOM.cloakPanel.contains(e.target) &&\r\n                            e.target !== DOM.cloakBtn &&\r\n                            !DOM.settingsPanel.contains(e.target) &&\r\n                            e.target !== DOM.settingsBtn\r\n                        ) {\r\n                            Panels.closeAll();\r\n                        }\r\n                    });\r\n                    document.addEventListener(\"keydown\", (e) => {\r\n                        if (e.key === \"Escape\") Panels.closeAll();\r\n                    });\r\n                },\r\n            };\r\n\r\n            \/* \u2500\u2500 CLOAKER \u2500\u2500 *\/\r\n            const Cloaker = {\r\n                originalTitle: document.title,\r\n                originalFavicon: document.querySelector(\"link[rel='icon']\")?.href || \"\",\r\n                cloaked: false,\r\n\r\n                init() {\r\n                    const applyBtn = document.getElementById(\"apply-cloak\");\r\n                    const resetBtn = document.getElementById(\"reset-cloak\");\r\n                    const status = document.getElementById(\"cloak-status\");\r\n                    const titleInput = document.getElementById(\"custom-title\");\r\n                    const iconInput = document.getElementById(\"custom-favicon\");\r\n\r\n                    document.querySelectorAll(\".preset-btn\").forEach((pb) => {\r\n                        pb.onclick = (e) => {\r\n                            e.stopPropagation();\r\n                            document.querySelectorAll(\".preset-btn\").forEach((p) => p.classList.remove(\"selected\"));\r\n                            pb.classList.add(\"selected\");\r\n                            titleInput.value = pb.dataset.title;\r\n                            iconInput.value = pb.dataset.icon;\r\n                        };\r\n                    });\r\n\r\n                    applyBtn.onclick = (e) => {\r\n                        e.stopPropagation();\r\n                        const title = titleInput.value.trim();\r\n                        const favicon = iconInput.value.trim();\r\n                        if (!title && !favicon) return;\r\n                        if (title) document.title = title;\r\n                        if (favicon) this.setFavicon(favicon);\r\n                        this.cloaked = true;\r\n                        DOM.cloakBtn.classList.add(\"active\");\r\n                        DOM.cloakBtn.innerHTML = ICON_EYE_ON;\r\n                        status.classList.add(\"visible\");\r\n                        Panels.closeAll();\r\n                    };\r\n\r\n                    resetBtn.onclick = (e) => {\r\n                        e.stopPropagation();\r\n                        document.title = this.originalTitle;\r\n                        this.setFavicon(\r\n                            this.originalFavicon ||\r\n                                \"https:\/\/github.com\/CorduroyBrick49\/Banana Town\/blob\/main\/AtlasIcon.ico?raw=true\"\r\n                        );\r\n                        this.cloaked = false;\r\n                        DOM.cloakBtn.classList.remove(\"active\");\r\n                        DOM.cloakBtn.innerHTML = ICON_EYE_OFF;\r\n                        status.classList.remove(\"visible\");\r\n                        titleInput.value = \"\";\r\n                        iconInput.value = \"\";\r\n                        document.querySelectorAll(\".preset-btn\").forEach((p) => p.classList.remove(\"selected\"));\r\n                    };\r\n                },\r\n\r\n                setFavicon(url) {\r\n                    document\r\n                        .querySelectorAll(\"link[rel='icon'], link[rel='shortcut icon']\")\r\n                        .forEach((el) => el.remove());\r\n                    const link = Object.assign(document.createElement(\"link\"), {\r\n                        rel: \"icon\",\r\n                        type: \"image\/x-icon\",\r\n                        href: url,\r\n                    });\r\n                    document.head.appendChild(link);\r\n                },\r\n            };\r\n\r\n            \/* \u2500\u2500 BOOT \u2500\u2500 *\/\r\n            function init() {\r\n                Theme.init();\r\n                Theme.apply(Theme.getPreferred());\r\n                Genres.init();\r\n                Favorites.render();\r\n                UI.render(data);\r\n                DOM.search.addEventListener(\"input\", Filters.apply.bind(Filters));\r\n                Panels.init();\r\n                Cloaker.init();\r\n            }\r\n\r\n            init();\r\n        <\/script>\r\n    <\/body>\r\n<\/body>\r\n<\/html>");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+body { 
+    font-family: 'Courier New', Courier, monospace; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh;  
+    margin: 0; 
+}
+
+#login-box { 
+    background: var(--bg); 
+    padding: 2rem; 
+    border: 2px solid var(--accent2);
+    border-radius: 4px; 
+    box-shadow: 0 0 15px var(--accent1); 
+    text-align: left; 
+    color: var(--accent1);
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Optional header style for the login box if you want to add a title */
+#login-box::before {
+    content: "SYSTEM ACCESS REQUIRED //";
+    display: block;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+input { 
+    background: var(--bg);
+    border: 1px solid var(--accent1);
+    color: var(--text);
+    border-radius:5px;
+    padding: 0.6rem; 
+    font-size: 1rem; 
+    margin-bottom: 1rem;
+    font-family: inherit;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 8px var(--accent1);
+}
+</style>
+</head>
+<body>
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Banana Town</title>
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="https://github.com/CorduroyBrick49/Banana Town/blob/main/AtlasIcon.ico?raw=true"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            *,
+            *::before,
+            *::after {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            :root {
+                --bg: #0b0b12;
+                --card: rgba(20, 20, 35, 0.7);
+                --border: rgba(168, 85, 247, 0.25);
+                --text: #ffffff;
+                --muted: #cbd5e1;
+                --accent1: #a855f7;
+                --accent2: #6366f1;
+                --bg-image: none;
+                --cardText: #d3d3d3;
+                --radius-sm: 8px;
+                --radius-md: 10px;
+                --radius-lg: 14px;
+                --radius-xl: 18px;
+                --transition-fast: 0.15s ease;
+                --transition-med: 0.25s ease;
+                --transition-slow: 0.35s ease;
+            }
+
+            html {
+                font-size: 16px;
+            }
+
+            body {
+                font-family:
+                    "Manrope",
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    sans-serif;
+                min-height: 100vh;
+                display: flex;
+                background: var(--bg);
+                color: var(--text);
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                transition:
+                    background var(--transition-slow),
+                    color var(--transition-slow);
+            }
+
+            body::before {
+                content: "";
+                position: fixed;
+                inset: 0;
+                z-index: -1;
+                background-image: var(--bg-image);
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                opacity: 0.35;
+                pointer-events: none;
+                transition:
+                    background-image var(--transition-slow),
+                    opacity var(--transition-slow);
+            }
+
+            /* ── SIDEBAR ── */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 260px;
+                height: 100vh;
+                z-index: 10;
+                padding: 22px 16px;
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+                background: var(--card);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                border-right: 1px solid var(--border);
+                overflow-y: auto;
+                overflow-x: hidden;
+                transition:
+                    background var(--transition-slow),
+                    border-color var(--transition-slow);
+            }
+
+            .sidebar::-webkit-scrollbar {
+                width: 4px;
+            }
+            .sidebar::-webkit-scrollbar-thumb {
+                background: var(--border);
+                border-radius: 4px;
+            }
+
+            .logo {
+                font-size: 1.6rem;
+                font-weight: 800;
+                letter-spacing: -0.02em;
+                background: linear-gradient(135deg, var(--accent1), var(--accent2));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 2px 0 6px;
+                user-select: none;
+            }
+
+            .logo svg {
+                flex-shrink: 0;
+                /* SVG stroke inherits from color but we need to override text-fill */
+                stroke: var(--accent1);
+            }
+
+            .sidebar-label {
+                font-size: 0.7rem;
+                font-weight: 600;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--muted);
+                opacity: 0.6;
+                padding: 0 4px;
+            }
+
+            .sidebar hr {
+                border: none;
+                border-top: 1px solid var(--border);
+                margin: 2px 0;
+            }
+
+            /* ── SEARCH ── */
+            .search {
+                width: 100%;
+                padding: 10px 14px;
+                border-radius: var(--radius-md);
+                border: 1px solid var(--border);
+                background: rgba(0, 0, 0, 0.2);
+                color: var(--text);
+                font-family: inherit;
+                font-size: 0.875rem;
+                font-weight: 400;
+                outline: none;
+                transition:
+                    border-color var(--transition-fast),
+                    background var(--transition-fast);
+            }
+
+            .search::placeholder {
+                color: var(--muted);
+                opacity: 0.6;
+            }
+
+            .search:focus {
+                border-color: var(--accent1);
+                background: rgba(0, 0, 0, 0.3);
+            }
+
+            /* ── GENRE PILLS ── */
+            .genres {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+
+            .genre-btn {
+                padding: 5px 10px;
+                border-radius: 999px;
+                border: 1px solid var(--border);
+                font-family: inherit;
+                font-size: 0.72rem;
+                font-weight: 600;
+                cursor: pointer;
+                background: rgba(0, 0, 0, 0.15);
+                color: var(--muted);
+                transition:
+                    transform var(--transition-fast),
+                    border-color var(--transition-fast),
+                    background var(--transition-fast),
+                    color var(--transition-fast);
+                line-height: 1;
+            }
+
+            .genre-btn:hover {
+                transform: translateY(-1px);
+                border-color: var(--accent1);
+                color: var(--text);
+            }
+
+            .genre-btn.active {
+                background: linear-gradient(135deg, var(--accent1), var(--accent2));
+                color: #fff;
+                border-color: transparent;
+            }
+
+            /* ── FAVORITES ── */
+            .favorites-list {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .fav-item {
+                padding: 10px 12px;
+                border-radius: var(--radius-md);
+                border: 1px solid var(--border);
+                color: #fff;
+                cursor: pointer;
+                font-family: inherit;
+                font-size: 0.82rem;
+                font-weight: 600;
+                text-align: left;
+                background-size: cover;
+                background-position: center;
+                display: flex;
+                align-items: center;
+                transition:
+                    transform var(--transition-med),
+                    border-color var(--transition-med),
+                    filter var(--transition-med);
+                position: relative;
+                overflow: hidden;
+                min-height: 40px;
+            }
+
+            .fav-item::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.45);
+                z-index: 0;
+            }
+
+            .fav-item span {
+                position: relative;
+                z-index: 1;
+            }
+
+            .fav-item:hover {
+                transform: translateY(-2px);
+                border-color: var(--accent1);
+                filter: brightness(1.15);
+            }
+
+            .fav-empty {
+                font-size: 0.78rem;
+                color: var(--muted);
+                opacity: 0.5;
+                padding: 4px;
+            }
+
+            /* ── THEME BUTTONS ── */
+            .theme-btn {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 9px 12px;
+                border-radius: var(--radius-md);
+                border: 1px solid var(--border);
+                background: rgba(0, 0, 0, 0.15);
+                color: var(--muted);
+                font-family: inherit;
+                font-size: 0.82rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition:
+                    transform var(--transition-fast),
+                    border-color var(--transition-fast),
+                    background var(--transition-fast),
+                    color var(--transition-fast);
+            }
+
+            .theme-btn:hover {
+                transform: translateY(-1px);
+                border-color: var(--accent1);
+                color: var(--text);
+            }
+
+            .theme-btn.active {
+                background: linear-gradient(135deg, var(--accent1), var(--accent2));
+                color: #fff;
+                border-color: transparent;
+            }
+
+            .theme-swatch {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                flex-shrink: 0;
+            }
+
+            /* ── MAIN ── */
+            .main {
+                flex: 1;
+                margin-left: 260px;
+                padding: 32px 32px 48px;
+            }
+
+            .header {
+                margin-bottom: 4px;
+            }
+
+            .header h1 {
+                font-size: 2.6rem;
+                font-weight: 800;
+                letter-spacing: -0.03em;
+                line-height: 1;
+            }
+
+            .header p {
+                margin-top: 6px;
+                font-size: 0.9rem;
+                color: var(--muted);
+                font-weight: 400;
+            }
+
+            /* ── GAME GRID ── */
+            .container {
+                margin-top: 24px;
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 16px;
+            }
+
+            .box {
+                position: relative;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                min-height: 210px;
+                padding: 16px;
+                border-radius: var(--radius-xl);
+                border: 1px solid var(--border);
+                background: var(--card);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                animation: cardPopIn 0.35s ease both;
+                transition:
+                    transform var(--transition-med),
+                    box-shadow var(--transition-med),
+                    border-color var(--transition-med),
+                    filter var(--transition-med);
+                cursor: default;
+            }
+
+            .box:hover {
+                transform: translateY(-6px) scale(1.005);
+                filter: brightness(1.1);
+                border-color: var(--accent1);
+                box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+            }
+
+            .box * {
+                position: relative;
+                z-index: 1;
+            }
+
+            .box h3 {
+                font-size: 1.05rem;
+                font-weight: 700;
+                margin-bottom: 5px;
+                color: var(--cardText);
+                line-height: 1.2;
+            }
+
+            .box p {
+                font-size: 0.82rem;
+                line-height: 1.5;
+                color: var(--cardText);
+                opacity: 0.85;
+                flex: 1;
+                margin-bottom: 12px;
+            }
+
+            .card-top {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                margin-bottom: 8px;
+                flex: 1;
+            }
+
+            .card-topbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .genre-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+
+            .genre-tag {
+                font-size: 0.67rem;
+                font-weight: 600;
+                padding: 3px 8px;
+                border-radius: 999px;
+                border: 1px solid var(--border);
+                color: var(--muted);
+                background: rgba(0, 0, 0, 0.2);
+                line-height: 1;
+            }
+
+            /* ── FAVORITE BUTTON ── */
+            .favorite-btn {
+                width: 24px;
+                height: 24px;
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+                line-height: 1;
+                font-size: 13px;
+                border-radius: var(--radius-sm);
+                cursor: pointer;
+                background: rgba(0, 0, 0, 0.3);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                color: rgba(255, 255, 255, 0.5);
+                transition:
+                    transform var(--transition-fast),
+                    border-color var(--transition-fast),
+                    background var(--transition-fast),
+                    color var(--transition-fast),
+                    box-shadow var(--transition-fast);
+            }
+
+            .favorite-btn:hover {
+                transform: scale(1.1);
+                border-color: rgba(255, 213, 74, 0.5);
+                color: rgba(255, 213, 74, 0.8);
+            }
+
+            .favorite-btn.active {
+                color: #ffd54a;
+                border-color: rgba(255, 213, 74, 0.5);
+                background: rgba(255, 213, 74, 0.12);
+                box-shadow: 0 0 8px rgba(255, 213, 74, 0.3);
+                animation: favPop 0.25s ease;
+            }
+
+            .favorite-btn:active {
+                transform: scale(0.88);
+            }
+
+            /* ── LAUNCH BUTTON ── */
+            .launch-btn {
+                width: 100%;
+                padding: 9px 14px;
+                border-radius: var(--radius-md);
+                border: none;
+                font-family: inherit;
+                font-size: 0.82rem;
+                font-weight: 700;
+                cursor: pointer;
+                background: linear-gradient(135deg, var(--accent1), var(--accent2));
+                color: #fff;
+                letter-spacing: 0.01em;
+                transition:
+                    filter var(--transition-fast),
+                    transform var(--transition-fast);
+                margin-top: auto;
+            }
+
+            .launch-btn:hover {
+                filter: brightness(1.15);
+                transform: translateY(-2px);
+            }
+
+            .launch-btn:active {
+                transform: translateY(1px);
+                filter: brightness(0.95);
+            }
+
+            /* ── TOP-RIGHT ICON BUTTONS ── */
+            .icon-btn {
+                position: fixed;
+                top: 14px;
+                z-index: 1000;
+                width: 34px;
+                height: 34px;
+                border-radius: var(--radius-md);
+                border: 1px solid var(--border);
+                background: var(--card);
+                color: var(--muted);
+                cursor: pointer;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                backdrop-filter: blur(14px);
+                -webkit-backdrop-filter: blur(14px);
+                transition:
+                    border-color var(--transition-fast),
+                    color var(--transition-fast),
+                    background var(--transition-fast),
+                    transform var(--transition-fast);
+            }
+
+            .icon-btn svg {
+                display: block;
+                flex-shrink: 0;
+            }
+
+            .icon-btn:hover {
+                border-color: var(--accent1);
+                color: var(--text);
+                transform: scale(1.06);
+            }
+
+            .icon-btn.active {
+                border-color: var(--accent1);
+                color: var(--accent1);
+                background: rgba(168, 85, 247, 0.1);
+            }
+
+            #cloak-btn {
+                right: 14px;
+            }
+            #settings-btn {
+                right: 56px;
+            }
+
+            /* ── PANELS ── */
+            .panel {
+                position: fixed;
+                right: 14px;
+                z-index: 1000;
+                width: 295px;
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-xl);
+                backdrop-filter: blur(22px);
+                -webkit-backdrop-filter: blur(22px);
+                padding: 16px;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-6px) scale(0.98);
+                transition:
+                    opacity 0.2s ease,
+                    transform 0.2s ease;
+            }
+
+            .panel.open {
+                opacity: 1;
+                pointer-events: all;
+                transform: translateY(0) scale(1);
+            }
+
+            #cloak-panel {
+                top: 56px;
+            }
+            #settings-panel {
+                top: 56px;
+            }
+
+            .panel-header h4 {
+                font-size: 0.9rem;
+                font-weight: 700;
+                color: var(--text);
+                margin-bottom: 2px;
+            }
+
+            .panel-header p {
+                font-size: 0.72rem;
+                color: var(--muted);
+                opacity: 0.7;
+            }
+
+            /* ── CLOAK PRESETS ── */
+            .cloak-presets {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 6px;
+            }
+
+            .preset-btn {
+                padding: 9px 8px;
+                border-radius: var(--radius-md);
+                border: 1px solid var(--border);
+                background: rgba(0, 0, 0, 0.15);
+                color: var(--muted);
+                cursor: pointer;
+                font-family: inherit;
+                font-size: 0.72rem;
+                font-weight: 600;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+                transition:
+                    border-color var(--transition-fast),
+                    color var(--transition-fast),
+                    background var(--transition-fast),
+                    transform var(--transition-fast);
+            }
+
+            .preset-btn:hover {
+                border-color: var(--accent1);
+                color: var(--text);
+                transform: translateY(-1px);
+            }
+
+            .preset-btn.selected {
+                background: linear-gradient(135deg, var(--accent1), var(--accent2));
+                color: #fff;
+                border-color: transparent;
+            }
+
+            .preset-icon {
+                width: 18px;
+                height: 18px;
+                border-radius: 4px;
+                object-fit: contain;
+                display: block;
+            }
+
+            .preset-icon-fallback {
+                width: 18px;
+                height: 18px;
+                border-radius: 4px;
+                background: rgba(255, 255, 255, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 10px;
+            }
+
+            /* ── CLOAK INPUTS ── */
+            .cloak-custom {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .cloak-custom label {
+                font-size: 0.72rem;
+                font-weight: 600;
+                color: var(--muted);
+                opacity: 0.7;
+            }
+
+            .panel-input {
+                padding: 8px 10px;
+                border-radius: var(--radius-sm);
+                border: 1px solid var(--border);
+                background: rgba(0, 0, 0, 0.2);
+                color: var(--text);
+                font-family: inherit;
+                font-size: 0.8rem;
+                outline: none;
+                width: 100%;
+                transition:
+                    border-color var(--transition-fast),
+                    background var(--transition-fast);
+            }
+
+            .panel-input::placeholder {
+                color: var(--muted);
+                opacity: 0.5;
+            }
+            .panel-input:focus {
+                border-color: var(--accent1);
+                background: rgba(0, 0, 0, 0.3);
+            }
+
+            /* ── PANEL ACTION BUTTONS ── */
+            .btn-primary {
+                padding: 9px 14px;
+                border-radius: var(--radius-md);
+                border: none;
+                cursor: pointer;
+                background: linear-gradient(135deg, var(--accent1), var(--accent2));
+                color: #fff;
+                font-family: inherit;
+                font-size: 0.82rem;
+                font-weight: 700;
+                transition:
+                    filter var(--transition-fast),
+                    transform var(--transition-fast);
+            }
+
+            .btn-primary:hover {
+                filter: brightness(1.12);
+                transform: translateY(-1px);
+            }
+            .btn-primary:active {
+                transform: translateY(0);
+                filter: brightness(0.95);
+            }
+
+            .btn-ghost {
+                padding: 8px 14px;
+                border-radius: var(--radius-md);
+                border: 1px solid var(--border);
+                cursor: pointer;
+                background: rgba(0, 0, 0, 0.15);
+                color: var(--muted);
+                font-family: inherit;
+                font-size: 0.8rem;
+                font-weight: 500;
+                transition:
+                    border-color var(--transition-fast),
+                    color var(--transition-fast),
+                    background var(--transition-fast),
+                    transform var(--transition-fast);
+            }
+
+            .btn-ghost:hover {
+                border-color: rgba(255, 100, 100, 0.45);
+                color: #ff7070;
+                transform: translateY(-1px);
+            }
+
+            .btn-ghost:active {
+                transform: translateY(0);
+            }
+
+            .cloak-status {
+                font-size: 0.72rem;
+                font-weight: 600;
+                text-align: center;
+                padding: 6px 10px;
+                border-radius: var(--radius-sm);
+                background: rgba(168, 85, 247, 0.08);
+                border: 1px solid rgba(168, 85, 247, 0.2);
+                color: var(--accent1);
+                display: none;
+            }
+
+            .cloak-status.visible {
+                display: block;
+            }
+
+            /* ── LOADING SCREEN ── */
+            #loading-screen {
+                position: fixed;
+                inset: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 14px;
+                background: rgba(5, 8, 18, 0.88);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                z-index: 9999;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.2s ease;
+            }
+
+            #loading-screen.active {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .loader {
+                width: 42px;
+                height: 42px;
+                border: 3px solid rgba(255, 255, 255, 0.12);
+                border-top-color: var(--accent1);
+                border-radius: 50%;
+                animation: spin 0.8s linear infinite;
+            }
+
+            #loading-screen p {
+                font-size: 0.85rem;
+                font-weight: 500;
+                color: var(--muted);
+            }
+
+            /* ── TOAST POPUP ── */
+            .toast {
+                position: fixed;
+                top: 18px;
+                left: 50%;
+                transform: translateX(-50%) translateY(-4px);
+                padding: 8px 16px;
+                border-radius: 999px;
+                font-size: 0.82rem;
+                font-weight: 600;
+                background: var(--card);
+                border: 1px solid var(--border);
+                backdrop-filter: blur(14px);
+                color: var(--text);
+                opacity: 0;
+                transition:
+                    opacity 0.2s ease,
+                    transform 0.2s ease;
+                z-index: 9999;
+                pointer-events: none;
+                white-space: nowrap;
+            }
+
+            .toast.show {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+
+            /* ── SCROLLBAR ── */
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+            ::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: linear-gradient(180deg, var(--accent1), var(--accent2));
+                border-radius: 8px;
+            }
+            * {
+                scrollbar-width: thin;
+                scrollbar-color: var(--accent1) transparent;
+            }
+
+            /* ── ANIMATIONS ── */
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            @keyframes favPop {
+                0% {
+                    transform: scale(0.75);
+                }
+                60% {
+                    transform: scale(1.25);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }
+
+            @keyframes cardPopIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(12px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                *,
+                *::before,
+                *::after {
+                    animation-duration: 0.01ms !important;
+                    transition-duration: 0.01ms !important;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        
+        <button class="icon-btn" id="cloak-btn" title="Tab Cloaking" aria-label="Tab Cloaking">
+            <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M2 12C2 12 5 5 12 5s10 7 10 7-3 7-10 7S2 12 2 12z" />
+                <circle cx="12" cy="12" r="3" />
+                <line x1="3" y1="3" x2="21" y2="21" />
+            </svg>
+        </button>
+
+        <button class="icon-btn" id="settings-btn" title="Settings" aria-label="Settings">
+            <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <circle cx="12" cy="12" r="3" />
+                <path
+                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"
+                />
+            </svg>
+        </button>
+
+        
+        <div class="panel" id="cloak-panel" role="dialog" aria-label="Tab Cloaking">
+            <div class="panel-header">
+                <h4>Tab Cloaking</h4>
+                <p>Disguise this tab's title and favicon</p>
+            </div>
+            <div class="cloak-presets" id="cloakPresets">
+                <button
+                    class="preset-btn"
+                    data-title="Dashboard"
+                    data-icon="https://shorelineschools.instructure.com/favicon.ico"
+                >
+                    <img
+                        class="preset-icon"
+                        src="https://shorelineschools.instructure.com/favicon.ico"
+                        alt=""
+                        loading="lazy"
+                    />
+                    Canvas
+                </button>
+                <button
+                    class="preset-btn"
+                    data-title="Khan Academy"
+                    data-icon="https://cdn.kastatic.org/images/favicon.ico"
+                >
+                    <img class="preset-icon" src="https://cdn.kastatic.org/images/favicon.ico" alt="" loading="lazy" />
+                    Khan Academy
+                </button>
+                <button
+                    class="preset-btn"
+                    data-title="Google Docs"
+                    data-icon="https://ssl.gstatic.com/images/branding/productlogos/docs_2026/v2/ico/docs_2026_32dp.ico"
+                >
+                    <img
+                        class="preset-icon"
+                        src="https://ssl.gstatic.com/images/branding/productlogos/docs_2026/v2/ico/docs_2026_32dp.ico"
+                        alt=""
+                        loading="lazy"
+                    />
+                    Google Docs
+                </button>
+                <button
+                    class="preset-btn"
+                    data-title="Gmail"
+                    data-icon="https://ssl.gstatic.com/ui/v1/icons/mail/images/favicon_gmail_2026_v2.ico"
+                >
+                    <img
+                        class="preset-icon"
+                        src="https://ssl.gstatic.com/ui/v1/icons/mail/images/favicon_gmail_2026_v2.ico"
+                        alt=""
+                        loading="lazy"
+                    />
+                    Gmail
+                </button>
+                <button
+                    class="preset-btn"
+                    data-title="Duolingo"
+                    data-icon="https://d35aaqx5ub95lt.cloudfront.net/favicon.ico"
+                >
+                    <img
+                        class="preset-icon"
+                        src="https://d35aaqx5ub95lt.cloudfront.net/favicon.ico"
+                        alt=""
+                        loading="lazy"
+                    />
+                    Duolingo
+                </button>
+                <button class="preset-btn" data-title="Wikipedia" data-icon="https://en.wikipedia.org/favicon.ico">
+                    <img class="preset-icon" src="https://en.wikipedia.org/favicon.ico" alt="" loading="lazy" />
+                    Wikipedia
+                </button>
+            </div>
+            <div class="cloak-custom">
+                <label for="custom-title">Custom title &amp; favicon URL</label>
+                <input class="panel-input" id="custom-title" placeholder="Tab title..." />
+                <input class="panel-input" id="custom-favicon" placeholder="Favicon URL (optional)" />
+            </div>
+            <button class="btn-primary" id="apply-cloak">Apply Cloak</button>
+            <button class="btn-ghost" id="reset-cloak">Reset to original</button>
+            <div class="cloak-status" id="cloak-status">Cloaking active ✓</div>
+        </div>
+
+        
+        <div class="panel" id="settings-panel" role="dialog" aria-label="Settings">
+            <div class="panel-header"><h4>Settings</h4></div>
+            <div class="sidebar-label">Theme</div>
+            <div id="themeBar" style="display: flex; flex-direction: column; gap: 6px">
+                <button class="theme-btn active" data-theme="dark">
+                    <span class="theme-swatch" style="background: linear-gradient(135deg, #7c3aed, #2563eb)"></span>Dark
+                </button>
+                <button class="theme-btn" data-theme="tokyoNight">
+                    <span class="theme-swatch" style="background: linear-gradient(135deg, #ff4fd8, #6336c0)"></span
+                    >Tokyo Night
+                </button>
+                <button class="theme-btn" data-theme="rootbeer">
+                    <span class="theme-swatch" style="background: linear-gradient(135deg, #a0522d, #d4956a)"></span>Root
+                    Beer
+                </button>
+            </div>
+        </div>
+
+        
+        <aside class="sidebar">
+            <div class="logo">
+               ✧ Banana Town
+            </div>
+            <input class="search" id="search" placeholder="Search games…" autocomplete="off" />
+            <div class="genres" id="genreBar"></div>
+            <hr />
+            <div class="sidebar-label">Favorites</div>
+            <div class="favorites-list" id="favoritesBar"></div>
+        </aside>
+
+        
+        <main class="main">
+            <div class="header">
+                <h1>Games</h1>
+                <p>Search, filter, and launch instantly</p>
+            </div>
+            <div class="container" id="boxContainer"></div>
+        </main>
+
+        
+        <div id="loading-screen" aria-live="polite">
+            <div class="loader"></div>
+            <p>Launching game…</p>
+        </div>
+
+        <script>
+            const data = [
+                {
+                    name: "Appel",
+                    description: "Bounce off surfaces to get shiny apples!",
+                    genres: ["Action", "Platformer"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/appel.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/Appel.jpg?raw=true",
+                },
+                {
+                    name: "Backrooms",
+                    description: "Endless yellow nightmare.",
+                    genres: ["Horror"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/backrooms.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/Backrooms.jpg?raw=true",
+                },
+                {
+                    name: "Balatro",
+                    description: "Play poker to defeat crazy bosses.",
+                    genres: ["Card", "Action"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/balatro.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/Balatro.jpg?raw=true",
+                },
+                {
+                    name: "Baseball Bros",
+                    description: "Fun baseball 2-player game.",
+                    genres: ["Sports", "2 Player"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/baseballbros.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/BaseballBros.jpg?raw=true",
+                },
+                {
+                    name: "Basket Bros",
+                    description: "Fun basketball game with friends.",
+                    genres: ["Sports", "2 Player"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/basketbros.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/BasketBros.jpg?raw=true",
+                },
+                {
+                    name: "Basketball Stars",
+                    description: "Solo or 2-player basketball with LeBron.",
+                    genres: ["Sports", "2 Player"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/basketballstars.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/BasketballStars.jpg?raw=true",
+                },
+                {
+                    name: "Blocky Snakes",
+                    description: "Slither.io but in 3D — ignore the popup.",
+                    genres: ["Action"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/blockysnakes.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/BlockySnakes.jpg?raw=true",
+                },
+                {
+                    name: "BLUMGI Racers",
+                    description: "Fun cartoon platforming driving game.",
+                    genres: ["Driving", "Platformer"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/blumgiracers.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/BlumgiRacers.jpg?raw=true",
+                },
+                {
+                    name: "Capybara Clicker",
+                    description: "Click a capybara into mammalian stardom.",
+                    genres: ["Idle"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/capybaraclicker.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/CapybaraClicker.jpg?raw=true",
+                },
+                {
+                    name: "Car King Arena",
+                    description: "King of the hill but with cool cars. Change language at top right.",
+                    genres: ["Driving", "Action"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/carkingarena.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/CarKingArena.jpg?raw=true",
+                },
+                {
+                    name: "Cleanup.io",
+                    description: "Race to vacuum up the most of the map.",
+                    genres: ["Action"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/cleanupio.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/CleanUpio.jpg?raw=true",
+                },
+                {
+                    name: "Cluster Rush",
+                    description: "Jump across moving trucks to reach the end.",
+                    genres: ["Runner", "Action"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/clusterrush.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/ClusterRush.jpg?raw=true",
+                },
+                {
+                    name: "Cookie Clicker",
+                    description: "Click a cookie and become the galaxy's best baker.",
+                    genres: ["Idle"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/cookieclicker.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/CookieClicker.jpg?raw=true",
+                },
+                {
+                    name: "Crazy Cars",
+                    description: "Car obstacle course. Bonus rocket league mode for two players.",
+                    genres: ["Driving"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/crazycars.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/CrazyCars.jpg?raw=true",
+                },
+                {
+                    name: "Crazy Motorcycle",
+                    description: "Play as Minecraft Steve on a motorcycle.",
+                    genres: ["Driving", "Runner"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/crazymotorcycle.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/CrazyMotorcycle.jpg?raw=true",
+                },
+                {
+                    name: "Crossy Road",
+                    description: "You are a chicken crossing the road. Don't die.",
+                    genres: ["Arcade"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/crossyroad.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/CrossyRoad.jpg?raw=true",
+                },
+                {
+                    name: "Cupcakes 2048",
+                    description: "Merge delectable goodies to reach 2048.",
+                    genres: ["Puzzle"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/2048cupcakes.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/Cupcakes2048.jpg?raw=true",
+                },
+                {
+                    name: "Dadish",
+                    description: "Save your little radish children as Dadish.",
+                    genres: ["Platformer"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/dadish1.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/Dadish.jpg?raw=true",
+                },
+                {
+                    name: "Dadish 2",
+                    description: "Dadish is back — this time in the office!",
+                    genres: ["Platformer"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/dadish2.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/Dadish2.jpg?raw=true",
+                },
+                {
+                    name: "Drive Mad",
+                    description: "Complete driving levels with increasingly wild cars.",
+                    genres: ["Driving"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/drivemad.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/DriveMad.jpg?raw=true",
+                },
+                {
+                    name: "Drift Boss",
+                    description: "Drift around corners — don't fall off!",
+                    genres: ["Driving"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/driftboss.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/DriftBoss.jpg?raw=true",
+                },
+                {
+                    name: "Dread Head Parkour",
+                    description: "A guy with dreads doing parkour.",
+                    genres: ["Platformer"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/dreadheadparkour.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/DreadheadParkour.jpg?raw=true",
+                },
+                {
+                    name: "Eggy Car",
+                    description: "Balance an egg on a car going uphill. Don't break it.",
+                    genres: ["Driving"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/eggycar.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/EggyCar.jpg?raw=true",
+                },
+                {
+                    name: "Elastic Face",
+                    description: "Stretch and disfigure a face.",
+                    genres: ["Other"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/elasticface.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/ElasticFace.jpg?raw=true",
+                },
+                {
+                    name: "Evil Glitch",
+                    description: "Retro space shooter.",
+                    genres: ["Arcade", "Action"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/evilglitch.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/EvilGlitch.jpg?raw=true",
+                },
+                {
+                    name: "Five Nights At Freddy's",
+                    description: "Don't let the animatronics get you. Press C — it won't skip to the end.",
+                    genres: ["Horror"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/fnaf.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/FNAF.jpg?raw=true",
+                },
+                {
+                    name: "Five Nights At Freddy's 2",
+                    description: "More animatronics, more terror.",
+                    genres: ["Horror"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/fnaf2.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/FNAF2.jpg?raw=true",
+                },
+                {
+                    name: "Five Nights At Freddy's 3",
+                    description: "Set thirty years later.",
+                    genres: ["Horror"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/fnaf3.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/FNAF3.jpg?raw=true",
+                },
+                {
+                    name: "Five Nights At Freddy's 4",
+                    description: "FNaF but in a house. Kinda janky.",
+                    genres: ["Horror"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/fnaf4.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/FNAF4.jpg?raw=true",
+                },
+                {
+                    name: "Flappy Bird",
+                    description: "Flap through pipes in this classic.",
+                    genres: ["Arcade", "Platformer"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/flappybird.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/FlappyBird.jpg?raw=true",
+                },
+                {
+                    name: "Fluid Simulator",
+                    description: "Play with colorful glowing fluid.",
+                    genres: ["Other"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/fluidsimulator.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/FluidSimulator.jpg?raw=true",
+                },
+                {
+                    name: "Football Legends",
+                    description: "1 or 2 player soccer.",
+                    genres: ["Sports", "2 Player"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/footballlegends.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/FootballLegends.jpg?raw=true",
+                },
+                {
+                    name: "Football Bros",
+                    description: "1 or 2 player American football.",
+                    genres: ["Sports", "2 Player"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/footballbros.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/FootballBros.jpg?raw=true",
+                },
+                {
+                    name: "Fruit Ninja",
+                    description: "Slice fruit, not the bombs.",
+                    genres: ["Action"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/fruitninja.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/FruitNinja.jpg?raw=true",
+                },
+                {
+                    name: "Funny Battle",
+                    description: "Drag and drop troops to fight enemies.",
+                    genres: ["Action"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/funnybattle.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/FunnyBattle.jpg?raw=true",
+                },
+                {
+                    name: "Funny Shooter",
+                    description: "3D shooter — survive waves of enemies.",
+                    genres: ["Shooter", "Action"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/funnyshooter2.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/FunnyShooter.jpg?raw=true",
+                },
+                {
+                    name: "Geometry Dash Lite",
+                    description: "Worse than GD but better than Scratch.",
+                    genres: ["Platformer"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/geometrydashlite.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/GeometryDash.jpg?raw=true",
+                },
+                {
+                    name: "Geometry Vibes",
+                    description: "GD wave game — don't click the ad buttons, they'll crash your game.",
+                    genres: ["Platformer"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/geometryvibes.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/GeometryVibes.jpg?raw=true",
+                },
+                {
+                    name: "Granny",
+                    description: "Don't let granny get you!",
+                    genres: ["Horror"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/granny.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/Granny.jpg?raw=true",
+                },
+                {
+                    name: "Guess Their Answer",
+                    description: "Fun trivia-style game.",
+                    genres: ["Word", "Puzzle"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/guesstheiranswer.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/GuessTheirAnswer.jpg?raw=true",
+                },
+                {
+                    name: "Helix Jump",
+                    description: "Avoid the kill tiles in this challenging game (a little buggy).",
+                    genres: ["Platformer"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/helixjump.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/HelixJump.jpg?raw=true",
+                },
+                {
+                    name: "House Of Hazards",
+                    description: "A house full of hazards.",
+                    genres: ["Platformer", "2 Player"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/houseofhazards.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/HouseOfHazards.jpg?raw=true",
+                },
+                {
+                    name: "Hover Racer Drive",
+                    description: "Weave through pillars as far as you can.",
+                    genres: ["Driving"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/hoverracerdrive.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/HoverRacerDrive.jpg?raw=true",
+                },
+                {
+                    name: "Johnny Trigger",
+                    description: "Flip around shooting enemies in this action game.",
+                    genres: ["Shooter", "Action"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/johnnytrigger.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/JohnnyTrigger.jpg?raw=true",
+                },
+                {
+                    name: "Level Devil",
+                    description: "A tricky game that constantly trolls you.",
+                    genres: ["Platformer"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/leveldevil.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/LevelDevil.jpg?raw=true",
+                },
+                {
+                    name: "Piano Tiles",
+                    description: "Rhythmic song tiles game.",
+                    genres: ["Action"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/PianoTiles.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/PianoTiles.jpg?raw=true",
+                },
+                {
+                    name: "Mario 64",
+                    description: "Run around and collect stars.",
+                    genres: ["Arcade", "Action"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/mario64.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/Mario64.jpg?raw=true",
+                },
+                {
+                    name: "Minecraft",
+                    description: "Version 1.8 — 1.12 coming soon.",
+                    genres: ["Sandbox"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/1.8.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/Minecraft.jpg?raw=true",
+                },
+                {
+                    name: "Monkey Mart",
+                    description: "You're a monkey running a general store.",
+                    genres: ["Idle"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/monkeymart.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/MonkeyMart.jpg?raw=true",
+                },
+                {
+                    name: "MotoX3M",
+                    description: "Dirt bike riding game — go fullscreen.",
+                    genres: ["Driving", "Platformer"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/motox3m.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/MotoX3M.jpg?raw=true",
+                },
+                {
+                    name: "Noob Miner",
+                    description: "Minecraft-like 2D sandbox.",
+                    genres: ["Sandbox", "Platformer"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/noobminer.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/NoobMiner.jpg?raw=true",
+                },
+                {
+                    name: "OvO",
+                    description: "Stickman parkour.",
+                    genres: ["Platformer"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/ovo.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/OvO.jpg?raw=true",
+                },
+                {
+                    name: "Paper.io",
+                    description: "Fill the board with your colored juice.",
+                    genres: ["Action"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/paperio2.htm",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/Paperio.jpg?raw=true",
+                },
+                {
+                    name: "PolyTrack",
+                    description: "Race your best time on this F1 sim.",
+                    genres: ["Driving"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/polytrack.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/PolyTrack.jpg?raw=true",
+                },
+                {
+                    name: "Ragdoll Archers",
+                    description: "Fun archery game with tons of arrow types.",
+                    genres: ["Shooter", "Action"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/ragdollarchers.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/RagdollArchers.jpg?raw=true",
+                },
+                {
+                    name: "Retro Bowl",
+                    description: "Football manager sim.",
+                    genres: ["Sports"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/retrobowl.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/RetroBowl.jpg?raw=true",
+                },
+                {
+                    name: "Retro Bowl College",
+                    description: "The college edition.",
+                    genres: ["Sports"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/retrobowlcollege.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/RetroBowlCollege.jpg?raw=true",
+                },
+                {
+                    name: "Run 3",
+                    description: "Space alien platformer.",
+                    genres: ["Runner"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/run3.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/Run3.jpg?raw=true",
+                },
+                {
+                    name: "Slope",
+                    description: "Navigate tight gaps and survive as long as you can.",
+                    genres: ["Runner", "Arcade"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/slope.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/Slope.jpg?raw=true",
+                },
+                {
+                    name: "Snowball.io",
+                    description: "Build a snowball and chuck it at other players.",
+                    genres: ["Action"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/snowballio.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/Snowballio.jpg?raw=true",
+                },
+                {
+                    name: "Space Bar Clicker",
+                    description: "Fun idle clicker.",
+                    genres: ["Idle"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/spacebarclicker.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/SpacebarClicker.jpg?raw=true",
+                },
+                {
+                    name: "Stack",
+                    description: "Timing-based tile stacking.",
+                    genres: ["Puzzle"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/stack.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/Stack.jpg?raw=true",
+                },
+                {
+                    name: "Stack-Tris",
+                    description: "Tetris with physics.",
+                    genres: ["Puzzle"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/stacktris.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/Stacktris.jpg?raw=true",
+                },
+                {
+                    name: "State.io",
+                    description: "Steal land by dragging arrows.",
+                    genres: ["Action"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/stateio.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/Stateio.jpg?raw=true",
+                },
+                {
+                    name: "Stick Fighter",
+                    description: "Stick guy fights other stick guys.",
+                    genres: ["Action", "2 Player"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/stickfighter.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/StickFighter.jpg?raw=true",
+                },
+                {
+                    name: "Stickman Hook",
+                    description: "Fun rope-swinging platformer.",
+                    genres: ["Platformer"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/stickmanhook.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/StickmanHook.jpg?raw=true",
+                },
+                {
+                    name: "Stick Merge",
+                    description: "Engaging gun merging action game.",
+                    genres: ["Action","Puzzle"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/stick-merge.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/StickMerge.jpg?raw=true",
+                },
+                {
+                    name: "Subway Surfers",
+                    description: "Classic endless runner — Beijing version only.",
+                    genres: ["Runner", "Action"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/subwaysurfers.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/SubwaySurfers.jpg?raw=true",
+                },
+                {
+                    name: "Tag",
+                    description: "2–4 players. Toggle powerups for a wilder game.",
+                    genres: ["Action", "2 Player"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/tag.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/Tag.jpg?raw=true",
+                },
+                {
+                    name: "Tap Road",
+                    description: "Tap to switch tracks — don't get hit.",
+                    genres: ["Action", "Runner"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/taproad.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/TapRoad.jpg?raw=true",
+                },
+                {
+                    name: "Temple Run",
+                    description: "Escape the temple before the monster gets you!",
+                    genres: ["Runner"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/templerun2.htm",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/TempleRun.jpg?raw=true",
+                },
+                {
+                    name: "Time Shooter 2",
+                    description: "Time moves when you move.",
+                    genres: ["Shooter", "Action"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/timeshooter2.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/TimeShooter2.jpg?raw=true",
+                },
+                {
+                    name: "Time Shooter 3",
+                    description: "More Time Shooter — slightly different.",
+                    genres: ["Shooter", "Action"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/timeshooter3.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/TimeShooter3.jpg?raw=true",
+                },
+                {
+                    name: "TinyFishing",
+                    description: "Relaxing fish-catching game.",
+                    genres: ["Idle"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/tinyfishing.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/TinyFishing.jpg?raw=true",
+                },
+                {
+                    name: "Tomb Of The Mask",
+                    description: "Tomb sliding puzzle.",
+                    genres: ["Platformer", "Action"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/tombofthemask.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/TombOfTheMask.jpg?raw=true",
+                },
+                {
+                    name: "Tunnel Rush",
+                    description: "Rush through colorful tunnels.",
+                    genres: ["Runner"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/tunnelrush.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/TunnelRush.jpg?raw=true",
+                },
+                {
+                    name: "Unlimited Wordle",
+                    description: "The popular NYT Wordle — unlimited plays.",
+                    genres: ["Word"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/wordleunlimited.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/Wordle.jpg?raw=true",
+                },
+                {
+                    name: "Zombie Rush",
+                    description: "Like Survivor.io.",
+                    genres: ["Shooter"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/zombierush.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/ZombieRush.jpg?raw=true",
+                },
+                {
+                    name: "8 Ball Classic",
+                    description: "Play pool.",
+                    genres: ["Sports", "2 Player"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/8ballclassic.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/8Ball.jpg?raw=true",
+                },
+                {
+                    name: "10 Minutes Till Dawn",
+                    description: "Pixel alien-killing game.",
+                    genres: ["Shooter"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/10minutestilldawn.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/10MinutesTillDawn.jpg?raw=true",
+                },
+                {
+                    name: "60 Second Burger Run",
+                    description: "Chubby guy looking for a burger.",
+                    genres: ["Platformer"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/60s_burger_run_standalone.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/60SecondBurgerRun.jpg?raw=true",
+                },
+                {
+                    name: "2048",
+                    description: "Number-merging puzzle.",
+                    genres: ["Puzzle"],
+                    url: "https://raw.githubusercontent.com/CorduroyBrick49/Games/refs/heads/main/2048.html",
+                    image: "https://github.com/CorduroyBrick49/Games/blob/main/Images/2048.jpg?raw=true",
+                },
+            ];
+
+            /* ── SVG ICONS ── */
+            const ICON_EYE_OFF = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12C2 12 5 5 12 5s10 7 10 7-3 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><line x1="3" y1="3" x2="21" y2="21"/></svg>`;
+            const ICON_EYE_ON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12C2 12 5 5 12 5s10 7 10 7-3 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>`;
+
+            /* ── DOM REFS ── */
+            const DOM = {
+                container: document.getElementById("boxContainer"),
+                search: document.getElementById("search"),
+                genreBar: document.getElementById("genreBar"),
+                favoritesBar: document.getElementById("favoritesBar"),
+                themeBtns: document.querySelectorAll(".theme-btn"),
+                loader: document.getElementById("loading-screen"),
+                cloakBtn: document.getElementById("cloak-btn"),
+                cloakPanel: document.getElementById("cloak-panel"),
+                settingsBtn: document.getElementById("settings-btn"),
+                settingsPanel: document.getElementById("settings-panel"),
+            };
+
+            /* ── STATE ── */
+            const STATE = {
+                activeGenre: "All",
+                favorites: JSON.parse(localStorage.getItem("atlas_favorites") || "[]"),
+                MAX_FAVORITES: 5,
+            };
+
+            /* ── THEMES ── */
+            const THEMES = {
+                dark: {
+                    bg: "linear-gradient(135deg,#05060a,#0b0f1a,#120a1f)",
+                    card: "rgba(15,15,25,0.8)",
+                    border: "rgba(120,90,255,0.25)",
+                    text: "#ffffff",
+                    muted: "#a9b0c3",
+                    accent1: "#7c3aed",
+                    accent2: "#2563eb",
+                    cardText: "#d3d3d3",
+                    bgImage: null,
+                },
+                tokyoNight: {
+                    bg: "linear-gradient(135deg,#0B0F1A 0%,#141026 50%,#1A1230 100%)",
+                    card: "rgba(25,20,45,0.72)",
+                    border: "rgba(255,105,180,0.25)",
+                    text: "#EDE7F6",
+                    muted: "#A79BC7",
+                    accent1: "#FF4FD8",
+                    accent2: "#A79BC7",
+                    cardText: "#F5F0FF",
+                    bgImage: "https://github.com/CorduroyBrick49/Themes/blob/main/TokyoCity.gif?raw=true",
+                },
+                rootbeer: {
+                    bg: "linear-gradient(135deg,#1A0F05 0%,#2E1A0A 45%,#3D2410 100%)",
+                    card: "rgba(45,25,8,0.78)",
+                    border: "rgba(180,110,40,0.22)",
+                    text: "#F5E6D0",
+                    muted: "#B8946A",
+                    accent1: "#A0522D",
+                    accent2: "#D4956A",
+                    cardText: "#FFF3E0",
+                    bgImage: "https://github.com/CorduroyBrick49/Themes/blob/main/rootbeer.png?raw=true",
+                },
+            };
+
+            /* ── THEME ── */
+            const Theme = {
+                apply(name) {
+                    const t = THEMES[name];
+                    if (!t) return;
+                    const r = document.documentElement;
+                    const map = {
+                        "--bg": t.bg,
+                        "--card": t.card,
+                        "--border": t.border,
+                        "--text": t.text,
+                        "--muted": t.muted,
+                        "--accent1": t.accent1,
+                        "--accent2": t.accent2,
+                        "--cardText": t.cardText,
+                        "--bg-image": t.bgImage ? `url(${t.bgImage})` : "none",
+                    };
+                    Object.entries(map).forEach(([k, v]) => r.style.setProperty(k, v));
+                    localStorage.setItem("atlas_theme", name);
+                    DOM.themeBtns.forEach((b) => b.classList.toggle("active", b.dataset.theme === name));
+                },
+                getPreferred() {
+                    const saved = localStorage.getItem("atlas_theme");
+                    if (saved && THEMES[saved]) return saved;
+                    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                },
+                init() {
+                    DOM.themeBtns.forEach((btn) => {
+                        btn.onclick = (e) => {
+                            e.stopPropagation();
+                            Theme.apply(btn.dataset.theme);
+                        };
+                    });
+                },
+            };
+
+            /* ── TOAST ── */
+            const Toast = {
+                el: null,
+                timer: null,
+                show(msg) {
+                    if (!this.el) {
+                        this.el = document.createElement("div");
+                        this.el.className = "toast";
+                        document.body.appendChild(this.el);
+                    }
+                    this.el.textContent = msg;
+                    clearTimeout(this.timer);
+                    requestAnimationFrame(() => {
+                        this.el.classList.add("show");
+                        this.timer = setTimeout(() => this.el.classList.remove("show"), 2000);
+                    });
+                },
+            };
+
+            /* ── FAVORITES ── */
+            const Favorites = {
+                save() {
+                    localStorage.setItem("atlas_favorites", JSON.stringify(STATE.favorites));
+                    this.render();
+                },
+                toggle(item) {
+                    const idx = STATE.favorites.findIndex((f) => f.name === item.name);
+                    if (idx === -1) {
+                        if (STATE.favorites.length >= STATE.MAX_FAVORITES) {
+                            Toast.show("Max 5 favorites reached");
+                            return;
+                        }
+                        STATE.favorites.push(item);
+                        Toast.show(`★ Added "${item.name}"`);
+                    } else {
+                        STATE.favorites.splice(idx, 1);
+                        Toast.show(`Removed "${item.name}"`);
+                    }
+                    this.save();
+                    this.updateStars();
+                },
+                render() {
+                    DOM.favoritesBar.innerHTML = "";
+                    if (!STATE.favorites.length) {
+                        DOM.favoritesBar.innerHTML = `<div class="fav-empty">No favorites yet</div>`;
+                        return;
+                    }
+                    STATE.favorites.forEach((item) => {
+                        const btn = document.createElement("button");
+                        btn.className = "fav-item";
+                        btn.style.backgroundImage = `url(${item.image})`;
+                        btn.innerHTML = `<span>${item.name}</span>`;
+                        btn.onclick = () => Game.open(item.url);
+                        DOM.favoritesBar.appendChild(btn);
+                    });
+                },
+                updateStars() {
+                    document.querySelectorAll(".box").forEach((box) => {
+                        const name = box.querySelector("h3").textContent;
+                        box.querySelector(".favorite-btn").classList.toggle(
+                            "active",
+                            STATE.favorites.some((f) => f.name === name)
+                        );
+                    });
+                },
+            };
+
+            /* ── GAME LAUNCHER ── */
+            const Game = {
+                open(url) {
+                    DOM.loader.classList.add("active");
+                    setTimeout(() => {
+                        fetch(url)
+                            .then((r) => r.text())
+                            .then((html) => {
+                                const base = url.slice(0, url.lastIndexOf("/") + 1);
+                                html = /<head/i.test(html)
+                                    ? html.replace(/<head([^>]*)>/i, `<head$1><base href="${base}">`)
+                                    : `<head><base href="${base}"></head>` + html;
+                                const w = window.open("about:blank");
+                                w.document.write(html);
+                                w.document.close();
+                                DOM.loader.classList.remove("active");
+                            })
+                            .catch(() => {
+                                DOM.loader.classList.remove("active");
+                                Toast.show("Failed to load game.");
+                            });
+                    }, 350);
+                },
+            };
+
+            /* ── GENRES ── */
+            const Genres = {
+                init() {
+                    const genres = ["All", ...new Set(data.flatMap((g) => g.genres))];
+                    genres.forEach((g) => {
+                        const btn = document.createElement("button");
+                        btn.className = "genre-btn" + (g === "All" ? " active" : "");
+                        btn.textContent = g;
+                        btn.onclick = () => {
+                            document.querySelectorAll(".genre-btn").forEach((b) => b.classList.remove("active"));
+                            btn.classList.add("active");
+                            STATE.activeGenre = g;
+                            Filters.apply();
+                        };
+                        DOM.genreBar.appendChild(btn);
+                    });
+                },
+            };
+
+            /* ── CARD RENDERING ── */
+            const UI = {
+                render(list) {
+                    DOM.container.innerHTML = "";
+                    if (!list.length) {
+                        DOM.container.innerHTML = `<div style="grid-column:1/-1;color:var(--muted);opacity:.6;padding:40px 0;font-size:.9rem;">No games found.</div>`;
+                        return;
+                    }
+                    list.forEach((item, i) => {
+                        const isFav = STATE.favorites.some((f) => f.name === item.name);
+                        const box = document.createElement("div");
+                        box.className = "box";
+                        box.style.animationDelay = `${Math.min(i * 0.04, 0.5)}s`;
+                        box.dataset.image = item.image;
+
+                        box.innerHTML = `
+                        <div class="card-top">
+                            <div class="card-topbar">
+                                <div class="genre-tags">${item.genres.map((g) => `<span class="genre-tag">${g}</span>`).join("")}</div>
+                                <button class="favorite-btn${isFav ? " active" : ""}" aria-label="Favorite ${item.name}" title="${isFav ? "Remove from favorites" : "Add to favorites"}">★</button>
+                            </div>
+                            <h3>${item.name}</h3>
+                            <p>${item.description}</p>
+                        </div>
+                        <button class="launch-btn">Launch Game</button>
+                    `;
+
+                        box.querySelector(".favorite-btn").onclick = (e) => {
+                            e.stopPropagation();
+                            Favorites.toggle(item);
+                        };
+                        box.querySelector(".launch-btn").onclick = () => Game.open(item.url);
+                        DOM.container.appendChild(box);
+                    });
+                    this.lazyLoad();
+                },
+
+                lazyLoad() {
+                    const obs = new IntersectionObserver(
+                        (entries, o) => {
+                            entries.forEach((entry) => {
+                                if (!entry.isIntersecting) return;
+                                const box = entry.target;
+                                if (box.dataset.image) {
+                                    box.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.52),rgba(0,0,0,0.52)),url(${box.dataset.image})`;
+                                    box.style.backgroundSize = "cover";
+                                    box.style.backgroundPosition = "center";
+                                }
+                                o.unobserve(box);
+                            });
+                        },
+                        { rootMargin: "250px" }
+                    );
+                    document.querySelectorAll(".box[data-image]").forEach((b) => obs.observe(b));
+                },
+            };
+
+            /* ── FILTERS ── */
+            const Filters = {
+                apply() {
+                    const q = DOM.search.value.toLowerCase().trim();
+                    const filtered = data.filter((item) => {
+                        const textMatch =
+                            !q ||
+                            item.name.toLowerCase().includes(q) ||
+                            item.description.toLowerCase().includes(q) ||
+                            item.genres.some((g) => g.toLowerCase().includes(q));
+                        const genreMatch = STATE.activeGenre === "All" || item.genres.includes(STATE.activeGenre);
+                        return textMatch && genreMatch;
+                    });
+                    UI.render(filtered);
+                },
+            };
+
+            /* ── PANELS ── */
+            const Panels = {
+                closeAll() {
+                    [DOM.cloakPanel, DOM.settingsPanel].forEach((p) => p.classList.remove("open"));
+                    [DOM.cloakBtn, DOM.settingsBtn].forEach((b) => b.classList.remove("active"));
+                },
+                toggle(panel, button) {
+                    const wasOpen = panel.classList.contains("open");
+                    this.closeAll();
+                    if (!wasOpen) {
+                        panel.classList.add("open");
+                        button.classList.add("active");
+                    }
+                },
+                init() {
+                    DOM.cloakBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        Panels.toggle(DOM.cloakPanel, DOM.cloakBtn);
+                    };
+                    DOM.settingsBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        Panels.toggle(DOM.settingsPanel, DOM.settingsBtn);
+                    };
+                    document.addEventListener("click", (e) => {
+                        if (
+                            !DOM.cloakPanel.contains(e.target) &&
+                            e.target !== DOM.cloakBtn &&
+                            !DOM.settingsPanel.contains(e.target) &&
+                            e.target !== DOM.settingsBtn
+                        ) {
+                            Panels.closeAll();
+                        }
+                    });
+                    document.addEventListener("keydown", (e) => {
+                        if (e.key === "Escape") Panels.closeAll();
+                    });
+                },
+            };
+
+            /* ── CLOAKER ── */
+            const Cloaker = {
+                originalTitle: document.title,
+                originalFavicon: document.querySelector("link[rel='icon']")?.href || "",
+                cloaked: false,
+
+                init() {
+                    const applyBtn = document.getElementById("apply-cloak");
+                    const resetBtn = document.getElementById("reset-cloak");
+                    const status = document.getElementById("cloak-status");
+                    const titleInput = document.getElementById("custom-title");
+                    const iconInput = document.getElementById("custom-favicon");
+
+                    document.querySelectorAll(".preset-btn").forEach((pb) => {
+                        pb.onclick = (e) => {
+                            e.stopPropagation();
+                            document.querySelectorAll(".preset-btn").forEach((p) => p.classList.remove("selected"));
+                            pb.classList.add("selected");
+                            titleInput.value = pb.dataset.title;
+                            iconInput.value = pb.dataset.icon;
+                        };
+                    });
+
+                    applyBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        const title = titleInput.value.trim();
+                        const favicon = iconInput.value.trim();
+                        if (!title && !favicon) return;
+                        if (title) document.title = title;
+                        if (favicon) this.setFavicon(favicon);
+                        this.cloaked = true;
+                        DOM.cloakBtn.classList.add("active");
+                        DOM.cloakBtn.innerHTML = ICON_EYE_ON;
+                        status.classList.add("visible");
+                        Panels.closeAll();
+                    };
+
+                    resetBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        document.title = this.originalTitle;
+                        this.setFavicon(
+                            this.originalFavicon ||
+                                "https://github.com/CorduroyBrick49/Banana Town/blob/main/AtlasIcon.ico?raw=true"
+                        );
+                        this.cloaked = false;
+                        DOM.cloakBtn.classList.remove("active");
+                        DOM.cloakBtn.innerHTML = ICON_EYE_OFF;
+                        status.classList.remove("visible");
+                        titleInput.value = "";
+                        iconInput.value = "";
+                        document.querySelectorAll(".preset-btn").forEach((p) => p.classList.remove("selected"));
+                    };
+                },
+
+                setFavicon(url) {
+                    document
+                        .querySelectorAll("link[rel='icon'], link[rel='shortcut icon']")
+                        .forEach((el) => el.remove());
+                    const link = Object.assign(document.createElement("link"), {
+                        rel: "icon",
+                        type: "image/x-icon",
+                        href: url,
+                    });
+                    document.head.appendChild(link);
+                },
+            };
+
+            /* ── BOOT ── */
+            function init() {
+                Theme.init();
+                Theme.apply(Theme.getPreferred());
+                Genres.init();
+                Favorites.render();
+                UI.render(data);
+                DOM.search.addEventListener("input", Filters.apply.bind(Filters));
+                Panels.init();
+                Cloaker.init();
+            }
+
+            init();
+        </script>
+    </body>
+</body>
+</html>
